@@ -1,45 +1,45 @@
 # Templates
 
-Colecao de templates de landing pages com preview interativo e download.
+A collection of landing page templates with interactive previews and downloadable HTML.
 
 <img width="1677" height="905" alt="image" src="https://github.com/user-attachments/assets/cda3eaac-8543-4944-aa26-b0721aa1717a" />
 
 
-## Requisitos
+## Requirements
 
 - Node.js 18+
 - npm
 
-## Como rodar
+## Run locally
 
 ```bash
 npm install
 npm run dev
 ```
 
-Abra http://localhost:3000.
+Open http://localhost:3000.
 
-## Build estatico (HTML)
+## Static build (HTML)
 
-O build gera arquivos estaticos em `dist/` para publicar em qualquer servidor.
+The build outputs static files to `dist/` for any static hosting.
 
 ```bash
 npm run build
 ```
 
-## Deploy em subpasta
+## Deploy under a subfolder
 
-O projeto esta configurado para servir em `/templates`.
+The project is configured to serve from `/templates`.
 
-Exemplo:
+Example:
 
 ```
 https://ivanamorim.com.br/templates
 ```
 
-Suba o conteudo da pasta `dist/` para a pasta `templates/` do seu servidor.
+Upload the contents of the `dist/` folder to your server's `templates/` directory.
 
 ## GitHub
 
-- Perfil: https://github.com/ivan12
+- Profile: https://github.com/ivan12
 - Repo: https://github.com/ivan12/templates
