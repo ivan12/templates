@@ -2,6 +2,9 @@
 
 Colecao de templates de landing pages com preview interativo e download.
 
+<img width="1677" height="905" alt="image" src="https://github.com/user-attachments/assets/cda3eaac-8543-4944-aa26-b0721aa1717a" />
+
+
 ## Requisitos
 
 - Node.js 18+
