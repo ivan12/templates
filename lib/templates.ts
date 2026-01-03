@@ -1186,7 +1186,10 @@ const templates: Record<number, string> = {
 
     <main class="flex-1 p-12 overflow-auto">
       <section data-doc-panel="intro">
-        <h1 class="text-5xl font-bold mb-4">Introduction</h1>
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+          <h1 class="text-5xl font-bold">Introduction</h1>
+          <button class="border px-4 py-2 rounded-lg" data-modal-open="download-guide">Download guide</button>
+        </div>
         <p class="text-lg text-slate-600 mb-8">Build modern applications with a simple, modular framework.</p>
         <div class="prose max-w-none">
           <h2 class="text-3xl font-bold mt-12 mb-4">Why use it?</h2>
@@ -1228,6 +1231,24 @@ const templates: Record<number, string> = {
     </main>
   </div>
 
+  <div class="fixed inset-0 bg-black/70 hidden items-center justify-center" data-modal="download-guide">
+    <div class="bg-white text-slate-900 rounded-xl p-6 w-full max-w-lg">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl font-semibold">Download and run locally</h3>
+        <button data-modal-close="download-guide" class="text-slate-500">X</button>
+      </div>
+      <ol class="list-decimal pl-6 space-y-2 text-sm text-slate-600">
+        <li>Click "Download" on a template to save the HTML file.</li>
+        <li>Unzip the package if your browser wraps the file.</li>
+        <li>Open the HTML file in your browser, or serve it with a simple server.</li>
+        <li>Optional: run a local server with <code>npx serve</code> and open the URL shown.</li>
+      </ol>
+      <div class="mt-4 flex justify-end">
+        <button data-modal-close="download-guide" class="bg-blue-600 text-white px-4 py-2 rounded-lg">Got it</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     document.querySelectorAll("[data-doc]").forEach((button) => {
       button.addEventListener("click", () => {
@@ -1255,6 +1276,28 @@ const templates: Record<number, string> = {
         }
       })
     }
+
+    document.querySelectorAll("[data-modal-open]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const target = button.getAttribute("data-modal-open")
+        const modal = document.querySelector("[data-modal='" + target + "']")
+        if (modal) {
+          modal.classList.remove("hidden")
+          modal.classList.add("flex")
+        }
+      })
+    })
+
+    document.querySelectorAll("[data-modal-close]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const target = button.getAttribute("data-modal-close")
+        const modal = document.querySelector("[data-modal='" + target + "']")
+        if (modal) {
+          modal.classList.add("hidden")
+          modal.classList.remove("flex")
+        }
+      })
+    })
   </script>
 </body>
 </html>`,
