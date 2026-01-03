@@ -1,6 +1,6 @@
 "use client"
 
-import { Dialog, DialogContent } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { getTemplateHTML } from "@/lib/templates"
 import { Monitor, Smartphone, Download, X } from "lucide-react"
@@ -32,47 +32,55 @@ export function DemoModal({ isOpen, onClose, templateId, templateName }: DemoMod
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="!max-w-[98vw] w-[98vw] h-[98vh] p-0 gap-0 border-0 rounded-lg" showCloseButton={false}>
-        <div className="flex items-center justify-between border-b border-border px-6 py-4 bg-card">
-          <div className="flex items-center gap-4">
-            <h2 className="text-lg font-semibold text-card-foreground">{templateName}</h2>
-            <Button variant="outline" size="sm" onClick={handleDownload} className="gap-2 bg-transparent">
-              <Download className="h-4 w-4" />
-              Download
-            </Button>
-          </div>
+      <DialogContent className="!max-w-none w-screen h-screen p-0 gap-0 border-0 rounded-none" showCloseButton={false}>
+        <DialogTitle className="sr-only">{templateName} Demo</DialogTitle>
+        <div className="flex items-center justify-between border-b border-slate-700/60 px-6 py-4 bg-slate-800/60 backdrop-blur-xl">
+          <h2 className="text-lg font-semibold text-card-foreground">{templateName}</h2>
 
-          <div className="flex items-center gap-2 bg-muted rounded-lg p-1">
-            <Button
-              variant={viewMode === "mobile" ? "default" : "ghost"}
-              size="sm"
-              onClick={() => setViewMode("mobile")}
-              className="gap-2"
-            >
-              <Smartphone className="h-4 w-4" />
-              Mobile
-            </Button>
-            <Button
-              variant={viewMode === "desktop" ? "default" : "ghost"}
-              size="sm"
-              onClick={() => setViewMode("desktop")}
-              className="gap-2"
-            >
-              <Monitor className="h-4 w-4" />
-              Desktop
-            </Button>
-          </div>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 bg-muted/60 rounded-lg p-1">
+              <Button
+                variant={viewMode === "mobile" ? "default" : "ghost"}
+                size="sm"
+                onClick={() => setViewMode("mobile")}
+                className="gap-2"
+              >
+                <Smartphone className="h-4 w-4" />
+                Mobile
+              </Button>
+              <Button
+                variant={viewMode === "desktop" ? "default" : "ghost"}
+                size="sm"
+                onClick={() => setViewMode("desktop")}
+                className="gap-2"
+              >
+                <Monitor className="h-4 w-4" />
+                Desktop
+              </Button>
+            </div>
 
-          <Button variant="ghost" size="icon" onClick={onClose}>
-            <X className="h-5 w-5" />
-          </Button>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleDownload}
+                className="gap-2 bg-black text-white border-black hover:bg-slate-900 hover:text-white"
+              >
+                <Download className="h-4 w-4" />
+                Download
+              </Button>
+              <Button variant="ghost" size="icon" onClick={onClose}>
+                <X className="h-5 w-5" />
+              </Button>
+            </div>
+          </div>
         </div>
 
-        <div className="flex items-center justify-center w-full h-[calc(98vh-64px)] bg-muted/20 p-4">
+        <div className="flex items-center justify-center w-full h-[calc(100vh-64px)] bg-muted/20 p-0">
           <iframe
-            sandbox="allow-scripts"
+            sandbox="allow-scripts allow-same-origin"
             srcDoc={previewHtml}
-            className={`border border-border rounded-lg bg-white transition-all duration-300 ${
+            className={`bg-white transition-all duration-300 ${
               viewMode === "mobile" ? "w-[375px] h-[812px]" : "w-full h-full"
             }`}
             title={`${templateName} Demo`}

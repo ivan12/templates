@@ -335,8 +335,43 @@ const templates: Record<number, string> = {
     const form = document.querySelector("[data-chat-form]")
     const clearButton = document.querySelector("[data-clear-chat]")
     const newButton = document.querySelector("[data-new-chat]")
+    const storageKey = "demo-ai-chat-messages"
+    const defaultMessages = [
+      { text: "Hello! I can help you with product copy, code, or strategy. What are you working on?", isUser: false },
+    ]
+    let messages = loadMessages()
 
-    function addMessage(text, isUser) {
+    function loadMessages() {
+      try {
+        const raw = localStorage.getItem(storageKey)
+        if (raw) {
+          const parsed = JSON.parse(raw)
+          if (Array.isArray(parsed)) {
+            return parsed.map((item) => ({ text: item.text, isUser: !!item.isUser }))
+          }
+        }
+      } catch (error) {
+        return defaultMessages.map((item) => ({ text: item.text, isUser: item.isUser }))
+      }
+      return defaultMessages.map((item) => ({ text: item.text, isUser: item.isUser }))
+    }
+
+    function saveMessages() {
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(messages))
+      } catch (error) {
+        return
+      }
+    }
+
+    function renderMessages() {
+      feed.innerHTML = ""
+      messages.forEach((message) => {
+        addMessage(message.text, message.isUser, false)
+      })
+    }
+
+    function addMessage(text, isUser, shouldSave = true) {
       const wrapper = document.createElement("div")
       const alignment = isUser ? "flex-row-reverse" : ""
       wrapper.className = "flex gap-4 " + alignment
@@ -347,7 +382,13 @@ const templates: Record<number, string> = {
         '<div class="' + bubbleClass + ' rounded-xl p-4 max-w-2xl">' + text + "</div>"
       feed.appendChild(wrapper)
       feed.scrollTop = feed.scrollHeight
+      if (shouldSave) {
+        messages.push({ text, isUser })
+        saveMessages()
+      }
     }
+
+    renderMessages()
 
     form.addEventListener("submit", (event) => {
       event.preventDefault()
@@ -362,12 +403,15 @@ const templates: Record<number, string> = {
     })
 
     clearButton.addEventListener("click", () => {
-      feed.innerHTML = ""
+      messages = []
+      saveMessages()
+      renderMessages()
     })
 
     newButton.addEventListener("click", () => {
-      feed.innerHTML = ""
-      addMessage("New chat started. What should we explore?", false)
+      messages = [{ text: "New chat started. What should we explore?", isUser: false }]
+      saveMessages()
+      renderMessages()
     })
 
     document.querySelectorAll("[data-chat]").forEach((button) => {
@@ -499,18 +543,53 @@ const templates: Record<number, string> = {
     const cartList = document.querySelector("[data-cart-list]")
     const cartPanel = document.querySelector("[data-cart-panel]")
     const cartToggle = document.querySelector("[data-cart-toggle]")
-    let count = 0
+    const cartStorageKey = "demo-ecommerce-cart"
+    let cartData = loadCart()
+
+    function loadCart() {
+      try {
+        const raw = localStorage.getItem(cartStorageKey)
+        if (raw) {
+          const parsed = JSON.parse(raw)
+          if (Array.isArray(parsed)) {
+            return parsed.map((item) => String(item))
+          }
+        }
+      } catch (error) {
+        return []
+      }
+      return []
+    }
+
+    function saveCart() {
+      try {
+        localStorage.setItem(cartStorageKey, JSON.stringify(cartData))
+      } catch (error) {
+        return
+      }
+    }
+
+    function renderCart() {
+      cartCount.textContent = String(cartData.length)
+      cartItems.textContent = cartData.length + " items"
+      cartList.innerHTML = ""
+      cartData.forEach((name) => {
+        const item = document.createElement("div")
+        item.className = "flex items-center justify-between text-sm"
+        item.innerHTML = "<span>" + name + "</span><span>$</span>"
+        cartList.appendChild(item)
+      })
+    }
+
+    renderCart()
 
     document.querySelectorAll("[data-add-to-cart]").forEach((button) => {
       button.addEventListener("click", () => {
-        count += 1
-        cartCount.textContent = count
-        cartItems.textContent = count + " items"
-        const item = document.createElement("div")
-        item.className = "flex items-center justify-between text-sm"
-        item.innerHTML =
-          "<span>" + button.getAttribute("data-add-to-cart") + "</span><span>$</span>"
-        cartList.appendChild(item)
+        const name = button.getAttribute("data-add-to-cart")
+        if (!name) return
+        cartData.push(name)
+        saveCart()
+        renderCart()
       })
     })
 
@@ -928,11 +1007,11 @@ const templates: Record<number, string> = {
         <h1 class="text-3xl font-bold mb-6">Settings</h1>
         <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-4">
           <label class="flex items-center gap-3">
-            <input type="checkbox" checked />
+            <input type="checkbox" checked data-setting="weeklyReports" />
             <span>Email weekly reports</span>
           </label>
           <label class="flex items-center gap-3">
-            <input type="checkbox" />
+            <input type="checkbox" data-setting="darkTheme" />
             <span>Enable dark theme</span>
           </label>
           <button class="bg-blue-600 px-6 py-2 rounded-lg">Save settings</button>
@@ -980,7 +1059,45 @@ const templates: Record<number, string> = {
 
     const settingsButton = document.querySelector("[data-panel='settings'] button")
     const settingsSaved = document.querySelector("[data-settings-saved]")
+    const settingsInputs = document.querySelectorAll("[data-setting]")
+    const settingsStorageKey = "demo-admin-settings"
+
+    function loadSettings() {
+      try {
+        const raw = localStorage.getItem(settingsStorageKey)
+        if (!raw) return null
+        const parsed = JSON.parse(raw)
+        return parsed && typeof parsed === "object" ? parsed : null
+      } catch (error) {
+        return null
+      }
+    }
+
+    function saveSettings() {
+      const data = {}
+      settingsInputs.forEach((input) => {
+        const key = input.getAttribute("data-setting")
+        data[key] = input.checked
+      })
+      try {
+        localStorage.setItem(settingsStorageKey, JSON.stringify(data))
+      } catch (error) {
+        return
+      }
+    }
+
+    const savedSettings = loadSettings()
+    if (savedSettings) {
+      settingsInputs.forEach((input) => {
+        const key = input.getAttribute("data-setting")
+        if (key && key in savedSettings) {
+          input.checked = !!savedSettings[key]
+        }
+      })
+    }
+
     settingsButton.addEventListener("click", () => {
+      saveSettings()
       settingsSaved.classList.remove("hidden")
     })
   </script>
@@ -1354,15 +1471,40 @@ const templates: Record<number, string> = {
     const feed = document.querySelector("[data-feed]")
     const form = document.querySelector("[data-post-form]")
     const toast = document.querySelector("[data-toast]")
+    const postStorageKey = "demo-social-posts"
+    let storedPosts = loadPosts()
 
-    form.addEventListener("submit", (event) => {
-      event.preventDefault()
-      const input = form.querySelector("input[name='post']")
-      const value = input.value.trim()
-      if (!value) return
-      const post = document.createElement("article")
-      post.className = "bg-slate-900 rounded-xl p-6 border border-slate-800"
-      post.innerHTML =
+    function loadPosts() {
+      try {
+        const raw = localStorage.getItem(postStorageKey)
+        if (!raw) return []
+        const parsed = JSON.parse(raw)
+        if (Array.isArray(parsed)) {
+          return parsed.map((item) => ({
+            id: String(item.id),
+            text: String(item.text),
+            likes: Number(item.likes) || 0,
+          }))
+        }
+      } catch (error) {
+        return []
+      }
+      return []
+    }
+
+    function savePosts() {
+      try {
+        localStorage.setItem(postStorageKey, JSON.stringify(storedPosts))
+      } catch (error) {
+        return
+      }
+    }
+
+    function buildPostElement(post) {
+      const article = document.createElement("article")
+      article.className = "bg-slate-900 rounded-xl p-6 border border-slate-800"
+      article.setAttribute("data-post-id", post.id)
+      article.innerHTML =
         '<div class="flex items-center gap-3 mb-4">' +
         '<div class="w-10 h-10 bg-blue-600 rounded-full"></div>' +
         "<div>" +
@@ -1370,13 +1512,39 @@ const templates: Record<number, string> = {
         '<p class="text-sm text-slate-400">Just now</p>' +
         "</div>" +
         "</div>" +
-        '<p class="mb-4">' + value + "</p>" +
+        '<p class="mb-4">' + post.text + "</p>" +
         '<div class="flex gap-6 text-slate-400">' +
-        '<button class="hover:text-blue-500" data-like>Like <span data-count="0">0</span></button>' +
+        '<button class="hover:text-blue-500" data-like>Like <span data-count="' +
+        post.likes +
+        '">' +
+        post.likes +
+        "</span></button>" +
         '<button class="hover:text-blue-500" data-comment>Comment</button>' +
         '<button class="hover:text-blue-500" data-toast="Link copied">Share</button>' +
         "</div>"
-      feed.prepend(post)
+      return article
+    }
+
+    function renderStoredPosts() {
+      storedPosts
+        .slice()
+        .reverse()
+        .forEach((post) => {
+          feed.prepend(buildPostElement(post))
+        })
+    }
+
+    renderStoredPosts()
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault()
+      const input = form.querySelector("input[name='post']")
+      const value = input.value.trim()
+      if (!value) return
+      const post = { id: String(Date.now()), text: value, likes: 0 }
+      storedPosts.unshift(post)
+      savePosts()
+      feed.prepend(buildPostElement(post))
       input.value = ""
     })
 
@@ -1384,6 +1552,17 @@ const templates: Record<number, string> = {
       const likeButton = event.target.closest("[data-like]")
       if (likeButton) {
         const count = likeButton.querySelector("[data-count]")
+        const postCard = likeButton.closest("[data-post-id]")
+        if (postCard) {
+          const postId = postCard.getAttribute("data-post-id")
+          const targetPost = storedPosts.find((post) => post.id === postId)
+          if (targetPost) {
+            targetPost.likes += 1
+            savePosts()
+            count.textContent = targetPost.likes
+            return
+          }
+        }
         count.textContent = Number(count.textContent) + 1
       }
 
