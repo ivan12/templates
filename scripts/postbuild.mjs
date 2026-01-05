@@ -1,4 +1,4 @@
-import { existsSync, rmSync, renameSync } from "node:fs"
+import { cpSync, existsSync, rmSync, renameSync } from "node:fs"
 import { join } from "node:path"
 
 const outDir = join(process.cwd(), "out")
@@ -13,4 +13,9 @@ if (existsSync(distDir)) {
   rmSync(distDir, { recursive: true, force: true })
 }
 
-renameSync(outDir, distDir)
+try {
+  renameSync(outDir, distDir)
+} catch (error) {
+  cpSync(outDir, distDir, { recursive: true })
+  rmSync(outDir, { recursive: true, force: true })
+}

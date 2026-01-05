@@ -9,7 +9,7 @@ import { subscribeAppConfig } from "@/lib/firebase-config"
 import { subscribeCategories } from "@/lib/firebase-categories"
 import { subscribeTemplateItems } from "@/lib/firebase-templates"
 import { fetchTemplateHtml } from "@/lib/template-html"
-import { Download, ExternalLink, Search, Settings } from "lucide-react"
+import { Coffee, Download, ExternalLink, Search, Settings } from "lucide-react"
 import { useEffect, useState } from "react"
 
 export function TemplateShowcase() {
@@ -137,8 +137,11 @@ export function TemplateShowcase() {
               {appConfig.subtitleHome}
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button size="lg" className="w-full sm:w-auto" onClick={handleResetFilters}>
-                View all templates
+              <Button asChild size="lg" className="w-full sm:w-auto">
+                <a href="https://buymeacoffee.com/amorimivan1" target="_blank" rel="noreferrer">
+                  <Coffee className="mr-2 h-5 w-5" />
+                  Buy me a coffee
+                </a>
               </Button>
               <Button asChild size="lg" variant="outline" className="w-full sm:w-auto bg-transparent">
                 <a href={appConfig.urlOfficialGithub} target="_blank" rel="noreferrer">
