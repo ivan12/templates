@@ -101,6 +101,7 @@
         "</span></button>" +
         '<button class="hover:text-blue-500" data-comment>Comment</button>' +
         '<button class="hover:text-blue-500" data-toast="Link copied">Share</button>' +
+        '<button class="hover:text-red-400" data-delete>Delete</button>' +
         "</div>"
       return article
     }
@@ -144,6 +145,18 @@
           }
         }
         count.textContent = Number(count.textContent) + 1
+      }
+
+      const deleteButton = event.target.closest("[data-delete]")
+      if (deleteButton) {
+        const postCard = deleteButton.closest("[data-post-id]")
+        if (postCard) {
+          const postId = postCard.getAttribute("data-post-id")
+          storedPosts = storedPosts.filter((post) => post.id !== postId)
+          savePosts()
+          postCard.remove()
+        }
+        return
       }
 
       const commentButton = event.target.closest("[data-comment]")
