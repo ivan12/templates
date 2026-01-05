@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Social Network</title>
+  <title>Notes</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-950 text-white">
   <nav class="border-b border-slate-800">
     <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-      <div class="text-xl font-bold">Social</div>
+      <div class="text-xl font-bold">Notes</div>
       <div class="flex items-center gap-4">
-        <button class="hover:bg-slate-900 p-2 rounded-lg" data-toast="Notifications coming soon">Notifications</button>
-        <button class="hover:bg-slate-900 p-2 rounded-lg" data-toast="Messages coming soon">Messages</button>
+        <button class="hover:bg-slate-900 p-2 rounded-lg" data-panel-button="notifications">Notifications</button>
+        <button class="hover:bg-slate-900 p-2 rounded-lg bg-slate-900" data-panel-button="messages">Messages</button>
         <div class="w-8 h-8 bg-blue-600 rounded-full"></div>
       </div>
     </div>
@@ -25,6 +25,24 @@
         <button class="bg-blue-600 px-6 py-2 rounded-lg hover:bg-blue-700">Post</button>
       </div>
     </form>
+
+    <section class="mb-6 space-y-3" data-panel-content>
+      <div class="space-y-6" data-panel-view="messages" data-messages-list></div>
+      <div class="space-y-2 hidden" data-panel-view="notifications">
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4">
+          <p class="font-semibold">New follower</p>
+          <p class="text-sm text-slate-400">Alex Chen started following you.</p>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4">
+          <p class="font-semibold">Post liked</p>
+          <p class="text-sm text-slate-400">Samira liked your portfolio update.</p>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4">
+          <p class="font-semibold">Comment</p>
+          <p class="text-sm text-slate-400">"Amazing work!" on your latest share.</p>
+        </div>
+      </div>
+    </section>
 
     <div class="space-y-6" data-feed>
       <article class="bg-slate-900 rounded-xl p-6 border border-slate-800" data-post>
@@ -51,12 +69,16 @@
     const feed = document.querySelector("[data-feed]")
     const form = document.querySelector("[data-post-form]")
     const toast = document.querySelector("[data-toast]")
-    const postStorageKey = "demo-social-posts"
-    let storedPosts = loadPosts()
+    const panelButtons = document.querySelectorAll("[data-panel-button]")
+    const panelContent = document.querySelectorAll("[data-panel-content] [data-panel-view]")
+    const messagesList = document.querySelector("[data-messages-list]")
+    const feedSection = document.querySelector("[data-feed]")
+    const messagesStorageKey = "demo-social-messages"
+    let storedMessages = loadMessages()
 
-    function loadPosts() {
+    function loadMessages() {
       try {
-        const raw = localStorage.getItem(postStorageKey)
+        const raw = localStorage.getItem(messagesStorageKey)
         if (!raw) return []
         const parsed = JSON.parse(raw)
         if (Array.isArray(parsed)) {
@@ -64,6 +86,9 @@
             id: String(item.id),
             text: String(item.text),
             likes: Number(item.likes) || 0,
+            author: typeof item.author === "string" ? item.author : "You",
+            time: typeof item.time === "string" ? item.time : "Just now",
+            avatarClass: typeof item.avatarClass === "string" ? item.avatarClass : "bg-blue-600",
           }))
         }
       } catch (error) {
@@ -72,9 +97,9 @@
       return []
     }
 
-    function savePosts() {
+    function saveMessages() {
       try {
-        localStorage.setItem(postStorageKey, JSON.stringify(storedPosts))
+        localStorage.setItem(messagesStorageKey, JSON.stringify(storedMessages))
       } catch (error) {
         return
       }
@@ -86,10 +111,10 @@
       article.setAttribute("data-post-id", post.id)
       article.innerHTML =
         '<div class="flex items-center gap-3 mb-4">' +
-        '<div class="w-10 h-10 bg-blue-600 rounded-full"></div>' +
+        '<div class="w-10 h-10 ' + post.avatarClass + ' rounded-full"></div>' +
         "<div>" +
-        '<p class="font-semibold">You</p>' +
-        '<p class="text-sm text-slate-400">Just now</p>' +
+        '<p class="font-semibold">' + post.author + "</p>" +
+        '<p class="text-sm text-slate-400">' + post.time + "</p>" +
         "</div>" +
         "</div>" +
         '<p class="mb-4">' + post.text + "</p>" +
@@ -106,26 +131,53 @@
       return article
     }
 
-    function renderStoredPosts() {
-      storedPosts
-        .slice()
-        .reverse()
-        .forEach((post) => {
-          feed.prepend(buildPostElement(post))
-        })
+    function renderStoredMessages() {
+      if (!messagesList) return
+      const seedPosts = [
+        {
+          id: "seed-1",
+          text: "Are you free to review the new landing page?",
+          likes: 8,
+          author: "Jordan Lee",
+          time: "45 min ago",
+          avatarClass: "bg-emerald-600",
+        },
+        {
+          id: "seed-2",
+          text: "Loved your latest post! Let's collaborate.",
+          likes: 14,
+          author: "Maya Silva",
+          time: "2 hours ago",
+          avatarClass: "bg-amber-500",
+        },
+      ]
+      const postsToRender = storedMessages.length ? storedMessages : seedPosts
+      messagesList.querySelectorAll("[data-post-id]").forEach((post) => post.remove())
+      postsToRender.forEach((post) => {
+        messagesList.prepend(buildPostElement(post))
+      })
     }
 
-    renderStoredPosts()
+    renderStoredMessages()
 
     form.addEventListener("submit", (event) => {
       event.preventDefault()
       const input = form.querySelector("input[name='post']")
       const value = input.value.trim()
       if (!value) return
-      const post = { id: String(Date.now()), text: value, likes: 0 }
-      storedPosts.unshift(post)
-      savePosts()
-      feed.prepend(buildPostElement(post))
+      const post = {
+        id: String(Date.now()),
+        text: value,
+        likes: 0,
+        author: "You",
+        time: "Just now",
+        avatarClass: "bg-blue-600",
+      }
+      storedMessages.unshift(post)
+      saveMessages()
+      if (messagesList) {
+        messagesList.prepend(buildPostElement(post))
+      }
       input.value = ""
     })
 
@@ -136,10 +188,10 @@
         const postCard = likeButton.closest("[data-post-id]")
         if (postCard) {
           const postId = postCard.getAttribute("data-post-id")
-          const targetPost = storedPosts.find((post) => post.id === postId)
+          const targetPost = storedMessages.find((post) => post.id === postId)
           if (targetPost) {
             targetPost.likes += 1
-            savePosts()
+            saveMessages()
             count.textContent = targetPost.likes
             return
           }
@@ -152,8 +204,8 @@
         const postCard = deleteButton.closest("[data-post-id]")
         if (postCard) {
           const postId = postCard.getAttribute("data-post-id")
-          storedPosts = storedPosts.filter((post) => post.id !== postId)
-          savePosts()
+          storedMessages = storedMessages.filter((post) => post.id !== postId)
+          saveMessages()
           postCard.remove()
         }
         return
@@ -169,6 +221,33 @@
         showToast(toastButton.getAttribute("data-toast"))
       }
     })
+
+    function setPanel(target) {
+      panelButtons.forEach((item) => item.classList.remove("bg-slate-900"))
+      panelButtons.forEach((item) => {
+        if (item.getAttribute("data-panel-button") === target) {
+          item.classList.add("bg-slate-900")
+        }
+      })
+      panelContent.forEach((panel) => {
+        panel.classList.toggle("hidden", panel.getAttribute("data-panel-view") !== target)
+      })
+      if (form) {
+        form.classList.toggle("hidden", target !== "messages")
+      }
+      if (feedSection) {
+        feedSection.classList.toggle("hidden", target !== "messages")
+      }
+    }
+
+    panelButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const target = button.getAttribute("data-panel-button")
+        if (target) setPanel(target)
+      })
+    })
+
+    setPanel("messages")
 
     function showToast(message) {
       toast.textContent = message
