@@ -58,7 +58,7 @@ Required keys:
 ## Adding new templates
 
 1) Open the admin at `/templates/admin` and add the template metadata.
-2) Put the HTML file in `templatesCode/` and make sure it is also available in `public/templatesCode/`.
+2) Put the HTML file in `public/templatesCode/`.
 3) Put the preview image in `public/` and use that filename in the `urlImage` field.
 
 ## GitHub
