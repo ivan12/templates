@@ -1,0 +1,641 @@
+<html lang="en" class="h-full"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>lumina — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link id="all-fonts-link-font-geist" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist">.font-geist { font-family: 'Geist', sans-serif !important; }</style><link id="all-fonts-link-font-roboto" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-roboto">.font-roboto { font-family: 'Roboto', sans-serif !important; }</style><link id="all-fonts-link-font-montserrat" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-montserrat">.font-montserrat { font-family: 'Montserrat', sans-serif !important; }</style><link id="all-fonts-link-font-poppins" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-poppins">.font-poppins { font-family: 'Poppins', sans-serif !important; }</style><link id="all-fonts-link-font-playfair" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&amp;display=swap"><style id="all-fonts-style-font-playfair">.font-playfair { font-family: 'Playfair Display', serif !important; }</style><link id="all-fonts-link-font-instrument-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:wght@400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-instrument-serif">.font-instrument-serif { font-family: 'Instrument Serif', serif !important; }</style><link id="all-fonts-link-font-merriweather" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&amp;display=swap"><style id="all-fonts-style-font-merriweather">.font-merriweather { font-family: 'Merriweather', serif !important; }</style><link id="all-fonts-link-font-bricolage" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-bricolage">.font-bricolage { font-family: 'Bricolage Grotesque', sans-serif !important; }</style><link id="all-fonts-link-font-jakarta" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-jakarta">.font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif !important; }</style><link id="all-fonts-link-font-manrope" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-manrope">.font-manrope { font-family: 'Manrope', sans-serif !important; }</style><link id="all-fonts-link-font-space-grotesk" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-space-grotesk">.font-space-grotesk { font-family: 'Space Grotesk', sans-serif !important; }</style><link id="all-fonts-link-font-work-sans" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-work-sans">.font-work-sans { font-family: 'Work Sans', sans-serif !important; }</style><link id="all-fonts-link-font-pt-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-pt-serif">.font-pt-serif { font-family: 'PT Serif', serif !important; }</style><link id="all-fonts-link-font-geist-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist-mono">.font-geist-mono { font-family: 'Geist Mono', monospace !important; }</style><link id="all-fonts-link-font-space-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-space-mono">.font-space-mono { font-family: 'Space Mono', monospace !important; }</style><link id="all-fonts-link-font-quicksand" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-quicksand">.font-quicksand { font-family: 'Quicksand', sans-serif !important; }</style><link id="all-fonts-link-font-nunito" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-nunito">.font-nunito { font-family: 'Nunito', sans-serif !important; }</style></head>
+  <body class="h-full antialiased selection:bg-neutral-900 selection:text-white text-neutral-900 bg-neutral-100 font-geist" style=""><div class="aura-background-component fixed top-0 w-full h-screen -z-10"><div data-us-project="qTiAlX0sxkuBOAiL7qHL" class="absolute top-0 left-0 -z-10 w-full h-full"></div><script type="text/javascript">!function(){if(!window.UnicornStudio){window.UnicornStudio={isInitialized:!1};var i=document.createElement("script");i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js",i.onload=function(){window.UnicornStudio.isInitialized||(UnicornStudio.init(),window.UnicornStudio.isInitialized=!0)},(document.head || document.body).appendChild(i)}}();</script></div>
+    <div class="min-h-screen">
+      <!-- Nav -->
+      <header class="sticky top-0 z-40 backdrop-blur-none">
+        <div class="max-w-7xl sm:px-6 mr-auto ml-auto pr-4 pl-4">
+          <div class="flex bg-neutral-900 rounded-3xl mt-2 mb-2 pt-4 pr-8 pb-4 pl-8 items-center justify-between">
+            <div class="flex items-center gap-3">
+              <a href="#" class="text-lg font-semibold text-white tracking-tight" style="">Suzy Liu</a>
+            </div>
+            <nav class="hidden md:flex items-center gap-6">
+              <a class="transition hover:text-white text-sm font-medium text-neutral-400" href="#" style="">Work</a>
+              <a class="text-sm font-medium transition text-neutral-400 hover:text-white" href="#" style="">About</a>
+              <a class="text-sm font-medium transition text-neutral-400 hover:text-white" href="#" style="">Blog</a>
+              <a class="text-sm font-medium transition text-neutral-400 hover:text-white" href="#" style="">Contact</a>
+            </nav>
+            <button class="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-full border transition border-neutral-700 hover:bg-neutral-800 text-white" aria-label="Menu">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="menu" class="lucide lucide-menu h-5 w-5"><path d="M4 12h16"></path><path d="M4 18h16"></path><path d="M4 6h16"></path></svg>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main -->
+      <main class="max-w-7xl sm:px-6 mr-auto ml-auto pr-4 pb-0 pl-4">
+        <div class="bg-white rounded-3xl space-y-4">
+          <!-- Suzy Liu Studio Header -->
+          <div class="bg-white rounded-3xl mt-8 pt-4 pr-4 pb-4 pl-4">
+            <h2 class="text-[14vw] sm:text-[10vw] lg:text-[7vw] leading-[0.9] py-6 font-light tracking-tight" style="">SUZY LIU <span class="text-neutral-400 font-light tracking-tight" style="">STUDIO</span></h2>
+          </div>
+          
+          <!-- Main Portfolio Layout -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 p-4" style="min-height: 600px;">
+            <!-- Left: Carousel -->
+            <section class="lg:col-span-2 flex">
+              <div class="relative overflow-hidden rounded-3xl bg-neutral-100 w-full">
+                <div id="carousel" class="relative h-[600px]">
+                  <!-- Slides -->
+                  <div class="absolute inset-0 transition-opacity duration-500 ease-out opacity-100" data-index="0">
+                    <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4f995362-9751-4d89-86fa-a5f7c03be905_1600w.jpg" alt="Portrait minimal" class="h-full w-full object-cover">
+                  </div>
+                  <div class="absolute inset-0 transition-opacity duration-500 ease-out opacity-0 pointer-events-none" data-index="1">
+                    <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/a8f75e15-5f15-4877-a253-da0b8f89efee_1600w.jpg" alt="Beige fashion editorial" class="h-full w-full object-cover" loading="lazy">
+                  </div>
+                  <div class="absolute inset-0 transition-opacity duration-500 ease-out opacity-0 pointer-events-none" data-index="2">
+                    <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/a3001134-ae66-49be-8bea-f8eed8b7e07e_1600w.jpg" alt="Moody mountains" class="h-full w-full object-cover" loading="lazy" style="">
+                  </div>
+                  <div class="absolute inset-0 transition-opacity duration-500 ease-out opacity-0 pointer-events-none" data-index="3">
+                    <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/5bf79840-b7ed-4d8d-acd3-c5f5835a065e_800w.jpg" alt="3D minimal render" class="h-full w-full object-cover" loading="lazy" style="">
+                  </div>
+
+                  <!-- Prev / Next -->
+                  <button id="prev" class="absolute left-4 top-1/2 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-xl transition bg-neutral-900/70 text-white hover:bg-neutral-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-left" class="lucide lucide-chevron-left h-5 w-5"><path d="m15 18-6-6 6-6"></path></svg>
+                  </button>
+                  <button id="next" class="absolute right-4 top-1/2 -translate-y-1/2 inline-flex h-10 w-10 transition hover:bg-neutral-900 text-white bg-neutral-900/70 rounded-xl items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" class="lucide lucide-chevron-right w-[20px] h-[20px]"><path d="m9 18 6-6-6-6"></path></svg>
+                  </button>
+
+                  <!-- Bottom left CTA -->
+                  <div class="absolute left-4 bottom-4">
+                    <a href="#" class="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium backdrop-blur transition bg-white/90 text-neutral-900 hover:bg-white" style="">
+                      View Project
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-up-right" class="lucide lucide-arrow-up-right h-4 w-4"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+                    </a>
+                  </div>
+
+                  <!-- Bottom center dots -->
+                  <div id="dots" class="absolute bottom-4 inset-x-0 flex items-center justify-center gap-2"><button class="h-2.5 w-2.5 rounded-full bg-white" aria-label="Go to slide 1"></button><button class="h-2.5 w-2.5 rounded-full bg-white/60 hover:bg-white/80" aria-label="Go to slide 2"></button><button class="h-2.5 w-2.5 rounded-full bg-white/60 hover:bg-white/80" aria-label="Go to slide 3"></button><button class="h-2.5 w-2.5 rounded-full bg-white/60 hover:bg-white/80" aria-label="Go to slide 4"></button></div>
+
+                  <!-- Bottom right label -->
+                  <div class="absolute right-3 bottom-3">
+                    <span class="rounded-2xl px-3 py-1 text-xs font-medium backdrop-blur bg-white/90 text-neutral-700" style="">Selected Work</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Right: Profile + Links -->
+            <aside class="flex flex-col" style="height: 600px;">
+              <div class="flex-1 flex flex-col space-y-4">
+                <!-- Profile -->
+                <div class="ring-1 ring-neutral-200 bg-white rounded-3xl pt-5 pr-5 pb-5 pl-5 shadow-sm">
+                  <div class="flex items-start gap-4">
+                    <div class="flex-1">
+                      <h2 class="text-xl font-semibold tracking-tight" style="">Suzy Liu</h2>
+                      <p class="text-sm text-neutral-600" style="">Photographer</p>
+                      <p class="mt-3 text-sm leading-6 text-neutral-700" style="">
+                        We capture authentic moments and craft visual stories blending clean minimalism with soft emotion—every frame composed with intention.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="ring-1 bg-[url(https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/4ba34171-fc4e-49ee-a2c4-13a87fd225c6_1600w.jpg)] bg-cover rounded-3xl pt-20 pr-5 pb-20 pl-5 shadow-sm ring-neutral-200 bg-white flex-1 min-h-0">
+                </div>
+
+                <!-- Social / Contact -->
+                <div class="space-y-3">
+                  <a href="#" class="flex items-center justify-between rounded-2xl px-4 py-3 ring-1 transition bg-white ring-neutral-200 hover:bg-neutral-50">
+                    <span class="text-sm font-medium text-neutral-800" style="">Instagram</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="instagram" class="lucide lucide-instagram h-5 w-5 text-neutral-500"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+                  </a>
+                  
+                  <a href="#" class="flex items-center justify-between rounded-2xl px-4 py-3 ring-1 transition bg-white ring-neutral-200 hover:bg-neutral-50">
+                    <span class="text-sm font-medium text-neutral-800" style="">Behance</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="palette" class="lucide lucide-palette h-5 w-5 text-neutral-500"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"></path><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle></svg>
+                  </a>
+                  
+                  <a href="#" class="flex items-center justify-between rounded-2xl px-4 py-3 ring-1 transition bg-white ring-neutral-200 hover:bg-neutral-50">
+                    <span class="text-sm font-medium text-neutral-800" style="">Twitter</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="twitter" class="lucide lucide-twitter h-5 w-5 text-neutral-500"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+                  </a>
+                  
+                  <a href="#" class="flex items-center justify-between rounded-2xl px-4 py-3 ring-1 transition bg-neutral-900 ring-neutral-200 hover:bg-black">
+                    <span class="text-sm font-medium text-white" style="">Contact Me</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="mail" class="lucide lucide-mail h-5 w-5 text-white"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg>
+                  </a>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+
+        <!-- Latest Work -->
+        <section class="bg-white rounded-3xl mt-8 pt-6 pr-6 pb-6 pl-6">
+          <!-- Header -->
+          <div class="flex items-center justify-between mb-3">
+            <p class="text-xs font-medium text-neutral-500 uppercase tracking-wide" style="">/Portfolio</p>
+            <span class="text-xs font-medium text-neutral-500" style="">(09)</span>
+          </div>
+
+          <div class="flex gap-6 items-start justify-between mb-8">
+            <div class="max-w-3xl">
+              <h2 class="text-4xl md:text-6xl text-neutral-900 font-light tracking-tight" style="">Latest moments from my portfolio.</h2>
+              <p class="mt-4 text-sm md:text-base text-neutral-600" style="">Portraits, editorials, and landscapes by Suzy Liu—minimal, calm, and intentional storytelling through light.</p>
+            </div>
+            <a href="#" class="hidden sm:inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition bg-neutral-100 ring-1 ring-neutral-200 hover:bg-neutral-200 text-neutral-900" style="">
+              View all projects
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="plus" class="lucide lucide-plus h-4 w-4"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+            </a>
+          </div>
+
+          <!-- Grid -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Feature Card (spans 2) -->
+            <article class="lg:col-span-2 rounded-3xl p-1 ring-1 bg-neutral-50 ring-neutral-200">
+              <div class="relative overflow-hidden rounded-2xl">
+                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/a96798fa-9905-42b3-9d61-fec4d29fbe06_800w.jpg" alt="Minimal landscape in soft gradient light" class="h-[360px] md:h-[460px] w-full object-cover" loading="lazy">
+                <!-- Category pill -->
+                <span class="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-neutral-800 shadow-sm backdrop-blur" style="">Editorial</span>
+                <!-- Bottom overlay -->
+                <div class="pointer-events-none absolute inset-x-0 bottom-0">
+                  <div class="h-40 bg-gradient-to-t from-neutral-900/90 via-neutral-900/40 to-transparent"></div>
+                </div>
+                <div class="absolute left-4 right-4 bottom-4">
+                  <p class="text-xs font-medium text-white/80" style="">May 30, 2025</p>
+                  <h3 class="mt-1 text-xl md:text-2xl text-white font-light tracking-tight" style="">The Power of Restraint in Photography</h3>
+                  <p class="mt-2 text-sm text-white/80" style="">How simplicity, negative space, and patient framing amplify emotion and create timeless images.</p>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="rounded-3xl p-1 ring-1 bg-neutral-50 ring-neutral-200">
+              <div class="overflow-hidden rounded-2xl relative">
+                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/361b93b3-4faa-4d90-a64d-f5de4921a4d7_800w.jpg" alt="Motion portrait in soft tones" class="h-[240px] md:h-[260px] w-full object-cover" loading="lazy">
+                <span class="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-neutral-800 shadow-sm backdrop-blur" style="">Portrait</span>
+              </div>
+              <div class="px-4 pt-4 pb-6">
+                <p class="text-xs font-medium text-neutral-500" style="">May 23, 2025</p>
+                <h4 class="mt-1 text-lg font-semibold tracking-tight text-neutral-900" style="">Designing for Calm: Motion in Portraits</h4>
+                <p class="mt-2 text-sm text-neutral-600" style="">Exploring blur, minimal palettes, and subtle pacing to shape the viewer's emotional response.</p>
+              </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="ring-1 ring-neutral-200 bg-neutral-50 rounded-3xl pt-1 pr-1 pb-1 pl-1">
+              <div class="overflow-hidden rounded-2xl relative">
+                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/cee814f4-9f14-4c82-896a-b36587194633_800w.jpg" alt="Studio black-and-white portrait with geometric light" class="h-[240px] md:h-[260px] w-full object-cover" loading="lazy">
+                <span class="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-neutral-800 shadow-sm backdrop-blur" style="">Studio</span>
+              </div>
+              <div class="px-4 pt-4 pb-6">
+                <p class="text-xs font-medium text-neutral-500" style="">May 16, 2025</p>
+                <h4 class="mt-1 text-lg font-semibold tracking-tight text-neutral-900" style="">Building a Timeless Aesthetic</h4>
+                <p class="mt-2 text-sm text-neutral-600" style="">Creating images that transcend trends by focusing on light, form, and honest expression.</p>
+              </div>
+            </article>
+
+            <article class="ring-1 ring-neutral-200 bg-neutral-50 rounded-3xl pt-1 pr-1 pb-1 pl-1">
+              <div class="overflow-hidden rounded-2xl relative">
+                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/88cc054f-a996-4a0c-8fec-3721e3ac4e25_800w.jpg" alt="Studio black-and-white portrait with geometric light" class="h-[240px] md:h-[260px] w-full object-cover" loading="lazy">
+                <span class="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-neutral-800 shadow-sm backdrop-blur" style="">Studio</span>
+              </div>
+              <div class="px-4 pt-4 pb-6">
+                <p class="text-xs font-medium text-neutral-500" style="">May 16, 2025</p>
+                <h4 class="mt-1 text-lg font-semibold tracking-tight text-neutral-900" style="">Building a Timeless Aesthetic</h4>
+                <p class="mt-2 text-sm text-neutral-600" style="">Creating images that transcend trends by focusing on light, form, and honest expression.</p>
+              </div>
+            </article>
+
+            <article class="ring-1 ring-neutral-200 bg-neutral-50 rounded-3xl pt-1 pr-1 pb-1 pl-1">
+              <div class="overflow-hidden rounded-2xl relative">
+                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/779c923e-bcc8-49c7-9328-661a04d3f208_800w.jpg" alt="Studio black-and-white portrait with geometric light" class="h-[240px] md:h-[260px] w-full object-cover" loading="lazy">
+                <span class="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-neutral-800 shadow-sm backdrop-blur" style="">Studio</span>
+              </div>
+              <div class="px-4 pt-4 pb-6">
+                <p class="text-xs font-medium text-neutral-500" style="">May 16, 2025</p>
+                <h4 class="mt-1 text-lg font-semibold tracking-tight text-neutral-900" style="">Building a Timeless Aesthetic</h4>
+                <p class="mt-2 text-sm text-neutral-600" style="">Creating images that transcend trends by focusing on light, form, and honest expression.</p>
+              </div>
+            </article>
+          </div>
+
+          <!-- Mobile View-all -->
+          <div class="mt-6 sm:hidden">
+            <a href="#" class="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition bg-neutral-100 ring-1 ring-neutral-200 hover:bg-neutral-200 text-neutral-900 w-full justify-center" style="">
+              View all projects
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="plus" class="lucide lucide-plus h-4 w-4"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+            </a>
+          </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="bg-white rounded-3xl mt-8 pt-6 pr-6 pb-6 pl-6">
+          <div class="flex items-center justify-between mb-6">
+            <p class="text-xs font-medium text-neutral-500 uppercase tracking-wide" style="">/About</p>
+            <span class="text-xs font-medium text-neutral-500" style="">(02)</span>
+          </div>
+
+          <h3 class="text-4xl md:text-6xl text-neutral-900 mb-8 font-light tracking-tight" style="">Behind the lens.</h3>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Main Content -->
+            <div class="lg:col-span-8">
+              <div class="relative overflow-hidden bg-neutral-50 ring-1 ring-neutral-200 rounded-3xl shadow-sm">
+                <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/0c1c4611-4743-407c-9375-ca363769720b_1600w.jpg" alt="Suzy Liu at work" class="h-80 sm:h-96 w-full object-cover">
+                <div class="bg-white pt-6 pr-6 pb-6 pl-6">
+                  <div class="prose prose-neutral max-w-none">
+                    <p class="text-lg text-neutral-700 leading-relaxed mb-4" style="">
+                      Creating minimal, calm, and intentional photography that tells authentic stories through light and composition.
+                    </p>
+                    <p class="text-neutral-600 mb-4" style="">
+                      My approach blends clean minimalism with soft emotion, capturing genuine moments that feel both timeless and deeply personal. Every frame is composed with intention, focusing on the subtle interplay between light, shadow, and human expression.
+                    </p>
+                    <p class="text-neutral-600" style="">
+                      Based in California, I work with clients who value thoughtful direction and meticulous attention to detail. Whether it's portraits, editorials, or brand photography, my goal is to create imagery that resonates with quiet strength and authentic beauty.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="lg:col-span-4 flex flex-col gap-6">
+              <!-- Stats Card -->
+              <div class="ring-1 ring-neutral-200 bg-neutral-50 rounded-3xl pt-6 pr-6 pb-6 pl-6 shadow-sm">
+                <div class="flex gap-2 text-xs text-neutral-500 mb-4 items-center uppercase tracking-wide">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="M7 11h8"></path><path d="M7 16h12"></path><path d="M7 6h3"></path></svg>
+                  <span style="">By the Numbers</span>
+                </div>
+                <div class="space-y-4">
+                  <div>
+                    <p class="text-2xl text-neutral-900 font-light tracking-tight" style="">200+</p>
+                    <p class="text-sm text-neutral-600" style="">Projects Completed</p>
+                  </div>
+                  <div>
+                    <p class="text-2xl text-neutral-900 font-light tracking-tight" style="">6</p>
+                    <p class="text-sm text-neutral-600" style="">Years Experience</p>
+                  </div>
+                  <div>
+                    <p class="text-2xl text-neutral-900 font-light tracking-tight" style="">25+</p>
+                    <p class="text-sm text-neutral-600" style="">Brands Collaborated</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Equipment Card -->
+              <div class="bg-neutral-900 rounded-3xl shadow-sm p-6">
+                <div class="flex items-center gap-2 text-white/80 text-xs mb-4 uppercase tracking-wide">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"></path><circle cx="12" cy="13" r="3"></circle></svg>
+                  <span style="">Equipment</span>
+                </div>
+                <div class="space-y-3">
+                  <div class="flex justify-between items-center">
+                    <span class="text-white/90 text-sm" style="">Canon R5</span>
+                    <span class="text-white/60 text-xs" style="">Primary</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-white/90 text-sm" style="">Sony A7R V</span>
+                    <span class="text-white/60 text-xs" style="">Backup</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-white/90 text-sm" style="">85mm f/1.4</span>
+                    <span class="text-white/60 text-xs" style="">Portrait</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-white/90 text-sm" style="">35mm f/1.4</span>
+                    <span class="text-white/60 text-xs" style="">Editorial</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Recognition Card -->
+              <div class="ring-1 ring-neutral-200 bg-neutral-50 rounded-3xl pt-6 pr-6 pb-6 pl-6 shadow-sm">
+                <div class="flex gap-2 text-xs text-neutral-500 mb-4 items-center uppercase tracking-wide">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>
+                  <span style="">Recognition</span>
+                </div>
+                <div class="space-y-2">
+                  <p class="text-sm text-neutral-600" style="">Featured in Vogue Magazine</p>
+                  <p class="text-sm text-neutral-600" style="">Winner - CA Photography Awards 2024</p>
+                  <p class="text-sm text-neutral-600" style="">Top 50 Portrait Photographers - PDN</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="relative overflow-hidden bg-neutral-900 rounded-3xl mt-8">
+          <!-- Decorative photos around headline -->
+          <div class="pointer-events-none absolute inset-0">
+            <div class="absolute -left-6 sm:left-4 top-6 sm:top-10 -rotate-6">
+              <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/9a421cf7-e975-430b-88c5-f554775493e1_800w.jpg" alt="Art print in soft light" class="w-40 sm:w-52 md:w-64 rounded-2xl object-cover shadow-sm ring-1 ring-white/10">
+            </div>
+            <div class="absolute right-0 sm:right-8 top-8 sm:top-14 rotate-6">
+              <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/c0aab170-b3d3-4816-9435-0ac1e1d853a3_800w.jpg" alt="Smiling client portrait" class="w-40 sm:w-52 md:w-64 rounded-2xl object-cover shadow-sm ring-1 ring-white/10">
+            </div>
+            <div class="absolute -left-4 sm:left-8 bottom-6 sm:bottom-10 -rotate-12">
+              <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/eab41fb3-55ff-46e1-973d-56fe1a4282a3_800w.jpg" alt="Editorial fashion blur" class="w-44 sm:w-60 md:w-72 rounded-2xl object-cover shadow-sm ring-1 ring-white/10">
+            </div>
+            <div class="absolute right-2 sm:right-10 bottom-4 sm:bottom-8 rotate-6">
+              <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/b59bad79-703a-4c05-8ed2-fafcc49a7b51_800w.jpg" alt="Minimal architecture scene" class="w-40 sm:w-52 md:w-64 rounded-2xl object-cover shadow-sm ring-1 ring-white/10">
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="relative max-w-4xl sm:px-6 text-center mr-auto ml-auto pt-16 pr-4 pb-16 pl-4">
+            <div class="flex items-center justify-between mb-8">
+              <p class="text-xs font-medium text-white/60 uppercase tracking-wide" style="">/Testimonials</p>
+              <span class="text-xs font-medium text-white/60" style="">(100+)</span>
+            </div>
+
+            <h2 class="text-4xl sm:text-6xl md:text-7xl text-white leading-tight font-light tracking-tight" style="">
+              Clients say working with Suzy Liu blends thoughtful direction and meticulous light—helping brands grow with confidence.
+            </h2>
+
+            <a href="#" class="mt-8 inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium bg-white text-neutral-900 hover:bg-neutral-100 transition" style="">
+              Read all reviews
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-up-right" class="lucide lucide-arrow-up-right h-4 w-4"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+            </a>
+          </div>
+        </section>
+
+        <!-- Services -->
+        <section class="relative overflow-hidden bg-neutral-900 rounded-3xl mt-8">
+          <div class="relative max-w-7xl sm:px-6 mr-auto ml-auto p-6">
+            <div class="flex items-center justify-between mb-8">
+              <p class="text-xs font-medium text-white/60 uppercase tracking-wide" style="">/Services</p>
+              <span class="text-xs font-medium text-white/60" style="">(03)</span>
+            </div>
+            
+            <h2 class="text-4xl sm:text-6xl md:text-7xl text-white leading-tight mb-8 font-light tracking-tight" style="">
+              Portrait packages designed for clarity and results.
+            </h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <!-- Quick Session -->
+              <article class="bg-white rounded-3xl p-1 ring-1 ring-neutral-200">
+                <div class="rounded-2xl bg-white p-6 sm:p-8">
+                  <p class="text-xs text-neutral-500 text-center uppercase tracking-wide" style="">( Ready within 3 days )</p>
+                  <h3 class="mt-2 text-2xl text-neutral-900 text-center font-light tracking-tight" style="">Quick Session</h3>
+                  <p class="mt-2 text-xs sm:text-sm text-neutral-600 text-center uppercase tracking-wide" style="">Perfect for a fast and focused portrait session</p>
+
+                  <div class="mt-5 overflow-hidden rounded-xl bg-neutral-900 text-white flex divide-x divide-white/10">
+                    <div class="flex-1 py-3 text-center text-sm font-medium uppercase tracking-wide" style="">30 Minutes</div>
+                    <div class="flex-1 py-3 text-center text-sm font-semibold" style="">$ 299</div>
+                  </div>
+
+                  <ul class="mt-5 text-sm">
+                    <li class="flex items-center gap-3 py-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check h-4 w-4 text-neutral-900"><path d="M20 6 9 17l-5-5"></path></svg>
+                      <span class="text-neutral-800" style="">+20 edited photos</span>
+                    </li>
+                    <li class="flex items-center gap-3 py-3 border-t border-dotted border-neutral-200">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check h-4 w-4 text-neutral-900"><path d="M20 6 9 17l-5-5"></path></svg>
+                      <span class="text-neutral-800" style="">One location</span>
+                    </li>
+                    <li class="flex items-center gap-3 py-3 border-t border-dotted border-neutral-200">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check h-4 w-4 text-neutral-900"><path d="M20 6 9 17l-5-5"></path></svg>
+                      <span class="text-neutral-800" style="">Portraits or headshots</span>
+                    </li>
+                    <li class="flex items-center gap-3 py-3 border-t border-dotted border-neutral-200">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="minus" class="lucide lucide-minus h-4 w-4 text-neutral-400"><path d="M5 12h14"></path></svg>
+                      <span class="text-neutral-400" style="">Outfit changes</span>
+                    </li>
+                    <li class="flex items-center gap-3 py-3 border-t border-dotted border-neutral-200">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="minus" class="lucide lucide-minus h-4 w-4 text-neutral-400"><path d="M5 12h14"></path></svg>
+                      <span class="text-neutral-400" style="">Styled direction</span>
+                    </li>
+                    <li class="flex items-center gap-3 py-3 border-t border-dotted border-neutral-200">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="minus" class="lucide lucide-minus h-4 w-4 text-neutral-400"><path d="M5 12h14"></path></svg>
+                      <span class="text-neutral-400" style="">Lighting setups</span>
+                    </li>
+                  </ul>
+
+                  <button class="mt-6 w-full inline-flex items-center justify-center rounded-xl bg-neutral-900 px-4 py-3 text-sm font-medium text-white hover:bg-black transition" style="">
+                    Reserve Now
+                  </button>
+                </div>
+              </article>
+
+              <!-- Full Portrait (Most Popular) -->
+              <article class="bg-white rounded-3xl p-1 ring-1 ring-neutral-200">
+                <div class="rounded-2xl bg-white p-6 sm:p-8">
+                  <div class="flex justify-center">
+                    <span class="inline-flex items-center rounded-full bg-neutral-900 text-white px-3 py-1 text-[11px] font-medium uppercase tracking-wide" style="">Most popular</span>
+                  </div>
+                  <p class="mt-3 text-xs text-neutral-500 text-center uppercase tracking-wide" style="">( Ready within 5 days )</p>
+                  <h3 class="mt-2 text-2xl text-neutral-900 text-center font-light tracking-tight" style="">Full Portrait</h3>
+                  <p class="mt-2 text-xs sm:text-sm text-neutral-600 text-center uppercase tracking-wide" style="">Ideal for personal portraits, couples, brands</p>
+
+                  <div class="mt-5 overflow-hidden rounded-xl bg-neutral-900 text-white flex divide-x divide-white/10">
+                    <div class="flex-1 py-3 text-center text-sm font-medium uppercase tracking-wide" style="">1.5 Hours</div>
+                    <div class="flex-1 py-3 text-center text-sm font-semibold" style="">$ 499</div>
+                  </div>
+
+                  <ul class="mt-5 text-sm">
+                    <li class="flex items-center gap-3 py-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check h-4 w-4 text-neutral-900"><path d="M20 6 9 17l-5-5"></path></svg>
+                      <span class="text-neutral-800" style="">+50 edited photos</span>
+                    </li>
+                    <li class="flex items-center gap-3 py-3 border-t border-dotted border-neutral-200">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check h-4 w-4 text-neutral-900"><path d="M20 6 9 17l-5-5"></path></svg>
+                      <span class="text-neutral-800" style="">1–2 locations</span>
+                    </li>
+                    <li class="flex items-center gap-3 py-3 border-t border-dotted border-neutral-200">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check h-4 w-4 text-neutral-900"><path d="M20 6 9 17l-5-5"></path></svg>
+                      <span class="text-neutral-800" style="">Portraits &amp; details</span>
+                    </li>
+                    <li class="flex items-center gap-3 py-3 border-t border-dotted border-neutral-200">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check h-4 w-4 text-neutral-900"><path d="M20 6 9 17l-5-5"></path></svg>
+                      <span class="text-neutral-800" style="">1–2 outfit changes</span>
+                    </li>
+                    <li class="flex items-center gap-3 py-3 border-t border-dotted border-neutral-200">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check h-4 w-4 text-neutral-900"><path d="M20 6 9 17l-5-5"></path></svg>
+                      <span class="text-neutral-800" style="">Basic styled direction</span>
+                    </li>
+                    <li class="flex items-center gap-3 py-3 border-t border-dotted border-neutral-200">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="minus" class="lucide lucide-minus h-4 w-4 text-neutral-400"><path d="M5 12h14"></path></svg>
+                      <span class="text-neutral-400" style="">Lighting setups</span>
+                    </li>
+                  </ul>
+
+                  <button class="mt-6 w-full inline-flex items-center justify-center rounded-xl bg-neutral-900 px-4 py-3 text-sm font-medium text-white hover:bg-black transition" style="">
+                    Reserve Now
+                  </button>
+                </div>
+              </article>
+
+              <!-- Creative Day -->
+              <article class="bg-white rounded-3xl p-1 ring-1 ring-neutral-200">
+                <div class="rounded-2xl bg-white p-6 sm:p-8">
+                  <p class="text-xs text-neutral-500 text-center uppercase tracking-wide" style="">( Ready within 1 week )</p>
+                  <h3 class="mt-2 text-2xl text-neutral-900 text-center font-light tracking-tight" style="">Creative Day</h3>
+                  <p class="mt-2 text-xs sm:text-sm text-neutral-600 text-center uppercase tracking-wide" style="">A half‑day session for full creative freedom</p>
+
+                  <div class="mt-5 overflow-hidden rounded-xl bg-neutral-900 text-white flex divide-x divide-white/10">
+                    <div class="flex-1 py-3 text-center text-sm font-medium uppercase tracking-wide" style="">3–4 Hours</div>
+                    <div class="flex-1 py-3 text-center text-sm font-semibold" style="">$ 999</div>
+                  </div>
+
+                  <ul class="mt-5 text-sm">
+                    <li class="flex items-center gap-3 py-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check h-4 w-4 text-neutral-900"><path d="M20 6 9 17l-5-5"></path></svg>
+                      <span class="text-neutral-800" style="">+120 edited photos</span>
+                    </li>
+                    <li class="flex items-center gap-3 py-3 border-t border-dotted border-neutral-200">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check h-4 w-4 text-neutral-900"><path d="M20 6 9 17l-5-5"></path></svg>
+                      <span class="text-neutral-800" style="">Multiple locations</span>
+                    </li>
+                    <li class="flex items-center gap-3 py-3 border-t border-dotted border-neutral-200">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check h-4 w-4 text-neutral-900"><path d="M20 6 9 17l-5-5"></path></svg>
+                      <span class="text-neutral-800" style="">Portraits, details &amp; candid shots</span>
+                    </li>
+                    <li class="flex items-center gap-3 py-3 border-t border-dotted border-neutral-200">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check h-4 w-4 text-neutral-900"><path d="M20 6 9 17l-5-5"></path></svg>
+                      <span class="text-neutral-800" style="">Unlimited outfit changes</span>
+                    </li>
+                    <li class="flex items-center gap-3 py-3 border-t border-dotted border-neutral-200">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check h-4 w-4 text-neutral-900"><path d="M20 6 9 17l-5-5"></path></svg>
+                      <span class="text-neutral-800" style="">Advanced styled direction</span>
+                    </li>
+                    <li class="flex items-center gap-3 py-3 border-t border-dotted border-neutral-200">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check h-4 w-4 text-neutral-900"><path d="M20 6 9 17l-5-5"></path></svg>
+                      <span class="text-neutral-800" style="">Advanced lighting setups</span>
+                    </li>
+                  </ul>
+
+                  <button class="mt-6 w-full inline-flex items-center justify-center rounded-xl bg-neutral-900 px-4 py-3 text-sm font-medium text-white hover:bg-black transition" style="">
+                    Reserve Now
+                  </button>
+                </div>
+              </article>
+            </div>
+            
+            <p class="mt-6 text-xs text-white/60" style="">All sessions include a private online gallery and high‑resolution downloads.</p>
+          </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-8">
+          <div class="w-full rounded-3xl bg-neutral-900 text-white p-6 sm:p-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <!-- Brand -->
+              <div class="flex flex-col justify-between">
+                <h3 class="text-5xl sm:text-6xl md:text-7xl font-light tracking-tight" style="">SUZY LIU</h3>
+                <div class="mt-6 space-y-1">
+                  <p class="text-sm text-white/70" style="">(510) 895–6500</p>
+                  <p class="text-2xl sm:text-3xl font-light tracking-tight" style="">hello@suzystudio.com</p>
+                </div>
+              </div>
+
+              <!-- Subscribe -->
+              <div>
+                <h4 class="text-3xl font-light tracking-tight" style="">Stay connected</h4>
+                <p class="mt-2 text-sm text-white/70" style="">Join the newsletter to receive updates on new work and journal posts.</p>
+                <form class="mt-5">
+                  <div class="flex items-center gap-3 border-b border-white/20 pb-2">
+                    <input type="email" placeholder="E‑mail" class="flex-1 bg-transparent placeholder-white/60 text-white text-sm focus:outline-none">
+                    <button type="submit" class="inline-flex items-center justify-center h-9 w-9 rounded-full bg-white text-neutral-900 hover:bg-neutral-100 transition">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" class="lucide lucide-arrow-right h-4 w-4"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <!-- Links -->
+              <div class="grid grid-cols-2 gap-8">
+                <ul class="space-y-2">
+                  <li><a href="#" class="text-sm text-white hover:text-white/80 font-medium transition" style="">About</a></li>
+                  <li><a href="#" class="text-sm text-white hover:text-white/80 font-medium transition" style="">Projects</a></li>
+                  <li><a href="#" class="text-sm text-white hover:text-white/80 font-medium transition" style="">Blog</a></li>
+                  <li><a href="#" class="text-sm text-white hover:text-white/80 font-medium transition" style="">Contact</a></li>
+                  <li><a href="#" class="text-sm text-white hover:text-white/80 font-medium transition" style="">Privacy Policy</a></li>
+                  <li><a href="#" class="text-sm text-white hover:text-white/80 font-medium transition" style="">Terms of Service</a></li>
+                </ul>
+                <ul class="space-y-2">
+                  <li><a href="#" class="text-sm text-white hover:text-white/80 font-medium transition" style="">Twitter</a></li>
+                  <li><a href="#" class="text-sm text-white hover:text-white/80 font-medium transition" style="">Behance</a></li>
+                  <li><a href="#" class="text-sm text-white hover:text-white/80 font-medium transition" style="">Instagram</a></li>
+                  <li><a href="#" class="text-sm text-white hover:text-white/80 font-medium transition" style="">Dribbble</a></li>
+                  <li><a href="#" class="text-sm text-white hover:text-white/80 font-medium transition" style="">en</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="mt-8 pt-6 border-t border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+              <p class="text-xs text-white/70" style="">© 2025 Suzy Liu. All rights reserved.</p>
+              <p class="text-sm text-white/70 sm:text-center" style="">Minimal, calm, and intentional photography crafted in black &amp; white.</p>
+              <div class="sm:ml-auto flex items-center gap-3 justify-start sm:justify-end">
+                <a href="#" class="inline-flex items-center gap-1 text-xs font-medium text-white hover:text-white/80 transition" style="">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="shield" class="lucide lucide-shield h-4 w-4"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
+                  Privacy
+                </a>
+                <a href="#" class="inline-flex items-center gap-1 text-xs font-medium text-white hover:text-white/80 transition" style="">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="file-text" class="lucide lucide-file-text h-4 w-4"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+                  Terms
+                </a>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </main>
+    </div>
+
+    <script>
+      // Initialize lucide icons
+      lucide.createIcons();
+
+      // Carousel logic
+      const slides = Array.from(document.querySelectorAll('#carousel [data-index]'));
+      const prev = document.getElementById('prev');
+      const next = document.getElementById('next');
+      const dotsWrap = document.getElementById('dots');
+      let current = 0;
+
+      function renderDots() {
+        dotsWrap.innerHTML = '';
+        slides.forEach((_, i) => {
+          const b = document.createElement('button');
+          b.className = 'h-2.5 w-2.5 rounded-full ' + (i === current ? 'bg-white' : 'bg-white/60 hover:bg-white/80');
+          b.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+          b.addEventListener('click', () => go(i));
+          dotsWrap.appendChild(b);
+        });
+      }
+
+      function go(index) {
+        slides.forEach((s, i) => {
+          if (i === index) {
+            s.classList.remove('opacity-0', 'pointer-events-none');
+            s.classList.add('opacity-100');
+          } else {
+            s.classList.add('opacity-0', 'pointer-events-none');
+            s.classList.remove('opacity-100');
+          }
+        });
+        current = index;
+        renderDots();
+      }
+
+      prev.addEventListener('click', () => {
+        const nextIndex = (current - 1 + slides.length) % slides.length;
+        go(nextIndex);
+      });
+
+      next.addEventListener('click', () => {
+        const nextIndex = (current + 1) % slides.length;
+        go(nextIndex);
+      });
+
+      let auto = setInterval(() => next.click(), 6000);
+      document.getElementById('carousel').addEventListener('mouseenter', () => clearInterval(auto));
+      document.getElementById('carousel').addEventListener('mouseleave', () => auto = setInterval(() => next.click(), 6000));
+
+      // Initial render
+      renderDots();
+    </script>
+  
+</body></html>
