@@ -19,14 +19,6 @@ npm run dev
 
 Open http://localhost:3000.
 
-## Static build (HTML)
-
-The build outputs static files to `dist/` for any static hosting.
-
-```bash
-npm run build
-```
-
 ## Deploy under a subfolder
 
 The project is configured to serve from `/templates`.
@@ -37,7 +29,14 @@ Example:
 https://ivanamorim.com.br/templates
 ```
 
-Upload the contents of the `dist/` folder to your server's `templates/` directory.
+Upload the output of your build to your server's `templates/` directory.
+
+## Recent updates
+
+- Admin area with tabs for Home, Templates, and Categories stored in Firebase Realtime Database
+- Template metadata now includes `order`, `active`, and `htmlFile` for ordering, visibility, and HTML file mapping
+- Home page reads app config and categories from Firebase and supports category filtering with a combobox
+- Template previews/downloads load HTML from `public/templatesCode`
 
 ## GitHub
 

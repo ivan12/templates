@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Network</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-white">
+  <nav class="border-b border-slate-800">
+    <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="text-xl font-bold">Social</div>
+      <div class="flex items-center gap-4">
+        <button class="hover:bg-slate-900 p-2 rounded-lg" data-toast="Notifications coming soon">Notifications</button>
+        <button class="hover:bg-slate-900 p-2 rounded-lg" data-toast="Messages coming soon">Messages</button>
+        <div class="w-8 h-8 bg-blue-600 rounded-full"></div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-2xl mx-auto px-6 py-8">
+    <form class="bg-slate-900 rounded-xl p-4 border border-slate-800 mb-6" data-post-form>
+      <input name="post" type="text" placeholder="What's on your mind?" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 mb-3 focus:outline-none focus:border-blue-600" />
+      <div class="flex justify-end">
+        <button class="bg-blue-600 px-6 py-2 rounded-lg hover:bg-blue-700">Post</button>
+      </div>
+    </form>
+
+    <div class="space-y-6" data-feed>
+      <article class="bg-slate-900 rounded-xl p-6 border border-slate-800" data-post>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 bg-purple-600 rounded-full"></div>
+          <div>
+            <p class="font-semibold">Sarah Chen</p>
+            <p class="text-sm text-slate-400">2 hours ago</p>
+          </div>
+        </div>
+        <p class="mb-4">Just launched my new portfolio! Would love your feedback.</p>
+        <div class="flex gap-6 text-slate-400">
+          <button class="hover:text-blue-500" data-like>Like <span data-count>24</span></button>
+          <button class="hover:text-blue-500" data-comment>Comment</button>
+          <button class="hover:text-blue-500" data-toast="Link copied">Share</button>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <div class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-white text-slate-900 px-4 py-2 rounded-full shadow-lg hidden" data-toast></div>
+
+  <script>
+    const feed = document.querySelector("[data-feed]")
+    const form = document.querySelector("[data-post-form]")
+    const toast = document.querySelector("[data-toast]")
+    const postStorageKey = "demo-social-posts"
+    let storedPosts = loadPosts()
+
+    function loadPosts() {
+      try {
+        const raw = localStorage.getItem(postStorageKey)
+        if (!raw) return []
+        const parsed = JSON.parse(raw)
+        if (Array.isArray(parsed)) {
+          return parsed.map((item) => ({
+            id: String(item.id),
+            text: String(item.text),
+            likes: Number(item.likes) || 0,
+          }))
+        }
+      } catch (error) {
+        return []
+      }
+      return []
+    }
+
+    function savePosts() {
+      try {
+        localStorage.setItem(postStorageKey, JSON.stringify(storedPosts))
+      } catch (error) {
+        return
+      }
+    }
+
+    function buildPostElement(post) {
+      const article = document.createElement("article")
+      article.className = "bg-slate-900 rounded-xl p-6 border border-slate-800"
+      article.setAttribute("data-post-id", post.id)
+      article.innerHTML =
+        '<div class="flex items-center gap-3 mb-4">' +
+        '<div class="w-10 h-10 bg-blue-600 rounded-full"></div>' +
+        "<div>" +
+        '<p class="font-semibold">You</p>' +
+        '<p class="text-sm text-slate-400">Just now</p>' +
+        "</div>" +
+        "</div>" +
+        '<p class="mb-4">' + post.text + "</p>" +
+        '<div class="flex gap-6 text-slate-400">' +
+        '<button class="hover:text-blue-500" data-like>Like <span data-count="' +
+        post.likes +
+        '">' +
+        post.likes +
+        "</span></button>" +
+        '<button class="hover:text-blue-500" data-comment>Comment</button>' +
+        '<button class="hover:text-blue-500" data-toast="Link copied">Share</button>' +
+        "</div>"
+      return article
+    }
+
+    function renderStoredPosts() {
+      storedPosts
+        .slice()
+        .reverse()
+        .forEach((post) => {
+          feed.prepend(buildPostElement(post))
+        })
+    }
+
+    renderStoredPosts()
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault()
+      const input = form.querySelector("input[name='post']")
+      const value = input.value.trim()
+      if (!value) return
+      const post = { id: String(Date.now()), text: value, likes: 0 }
+      storedPosts.unshift(post)
+      savePosts()
+      feed.prepend(buildPostElement(post))
+      input.value = ""
+    })
+
+    document.addEventListener("click", (event) => {
+      const likeButton = event.target.closest("[data-like]")
+      if (likeButton) {
+        const count = likeButton.querySelector("[data-count]")
+        const postCard = likeButton.closest("[data-post-id]")
+        if (postCard) {
+          const postId = postCard.getAttribute("data-post-id")
+          const targetPost = storedPosts.find((post) => post.id === postId)
+          if (targetPost) {
+            targetPost.likes += 1
+            savePosts()
+            count.textContent = targetPost.likes
+            return
+          }
+        }
+        count.textContent = Number(count.textContent) + 1
+      }
+
+      const commentButton = event.target.closest("[data-comment]")
+      if (commentButton) {
+        showToast("Comments are coming soon")
+      }
+
+      const toastButton = event.target.closest("[data-toast]")
+      if (toastButton && toastButton !== toast) {
+        showToast(toastButton.getAttribute("data-toast"))
+      }
+    })
+
+    function showToast(message) {
+      toast.textContent = message
+      toast.classList.remove("hidden")
+      setTimeout(() => toast.classList.add("hidden"), 1500)
+    }
+  </script>
+</body>
+</html>

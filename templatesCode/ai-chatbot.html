@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Chatbot - Chat Interface</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-white">
+  <div class="flex h-screen">
+    <aside class="w-64 border-r border-slate-800 p-4 flex flex-col">
+      <button data-new-chat class="w-full bg-blue-600 py-2 rounded-lg mb-4 hover:bg-blue-700">+ New Chat</button>
+      <div class="space-y-2 flex-1 overflow-auto" data-chat-list>
+        <button class="w-full text-left p-3 bg-slate-900 rounded-lg border border-slate-800" data-chat="0">
+          <p class="text-sm font-medium">Product Ideas</p>
+          <p class="text-xs text-slate-400">2 hours ago</p>
+        </button>
+        <button class="w-full text-left p-3 hover:bg-slate-900 rounded-lg" data-chat="1">
+          <p class="text-sm">Marketing Strategy</p>
+          <p class="text-xs text-slate-400">Yesterday</p>
+        </button>
+        <button class="w-full text-left p-3 hover:bg-slate-900 rounded-lg" data-chat="2">
+          <p class="text-sm">Code Review</p>
+          <p class="text-xs text-slate-400">2 days ago</p>
+        </button>
+      </div>
+      <div class="mt-4 text-xs text-slate-400">AI Assistant v2.1</div>
+    </aside>
+
+    <main class="flex-1 flex flex-col">
+      <header class="border-b border-slate-800 p-4 flex items-center justify-between">
+        <div>
+          <h1 class="text-xl font-semibold">AI Assistant</h1>
+          <p class="text-xs text-slate-400">Ask anything. Get answers in seconds.</p>
+        </div>
+        <button data-clear-chat class="text-sm text-slate-300 hover:text-white">Clear</button>
+      </header>
+
+      <div class="flex-1 overflow-y-auto p-6 space-y-6" data-chat-feed>
+        <div class="flex gap-4">
+          <div class="w-8 h-8 bg-blue-600 rounded-full flex-shrink-0"></div>
+          <div class="bg-slate-900 rounded-xl p-4 max-w-2xl">
+            <p>Hello! I can help you with product copy, code, or strategy. What are you working on?</p>
+          </div>
+        </div>
+      </div>
+
+      <form class="border-t border-slate-800 p-4" data-chat-form>
+        <div class="flex gap-2">
+          <input name="message" type="text" placeholder="Type your message..." class="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-600" />
+          <button class="bg-blue-600 px-6 py-3 rounded-lg hover:bg-blue-700" type="submit">Send</button>
+        </div>
+      </form>
+    </main>
+  </div>
+
+  <script>
+    const feed = document.querySelector("[data-chat-feed]")
+    const form = document.querySelector("[data-chat-form]")
+    const clearButton = document.querySelector("[data-clear-chat]")
+    const newButton = document.querySelector("[data-new-chat]")
+    const storageKey = "demo-ai-chat-messages"
+    const defaultMessages = [
+      { text: "Hello! I can help you with product copy, code, or strategy. What are you working on?", isUser: false },
+    ]
+    let messages = loadMessages()
+
+    function loadMessages() {
+      try {
+        const raw = localStorage.getItem(storageKey)
+        if (raw) {
+          const parsed = JSON.parse(raw)
+          if (Array.isArray(parsed)) {
+            return parsed.map((item) => ({ text: item.text, isUser: !!item.isUser }))
+          }
+        }
+      } catch (error) {
+        return defaultMessages.map((item) => ({ text: item.text, isUser: item.isUser }))
+      }
+      return defaultMessages.map((item) => ({ text: item.text, isUser: item.isUser }))
+    }
+
+    function saveMessages() {
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(messages))
+      } catch (error) {
+        return
+      }
+    }
+
+    function renderMessages() {
+      feed.innerHTML = ""
+      messages.forEach((message) => {
+        addMessage(message.text, message.isUser, false)
+      })
+    }
+
+    function addMessage(text, isUser, shouldSave = true) {
+      const wrapper = document.createElement("div")
+      const alignment = isUser ? "flex-row-reverse" : ""
+      wrapper.className = "flex gap-4 " + alignment
+      const avatarClass = isUser ? "bg-emerald-600" : "bg-blue-600"
+      const bubbleClass = isUser ? "bg-blue-900/40" : "bg-slate-900"
+      wrapper.innerHTML =
+        '<div class="w-8 h-8 ' + avatarClass + ' rounded-full flex-shrink-0"></div>' +
+        '<div class="' + bubbleClass + ' rounded-xl p-4 max-w-2xl">' + text + "</div>"
+      feed.appendChild(wrapper)
+      feed.scrollTop = feed.scrollHeight
+      if (shouldSave) {
+        messages.push({ text, isUser })
+        saveMessages()
+      }
+    }
+
+    renderMessages()
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault()
+      const input = form.querySelector("input[name='message']")
+      const value = input.value.trim()
+      if (!value) return
+      addMessage(value, true)
+      input.value = ""
+      setTimeout(() => {
+        addMessage("Got it. I can draft a plan or generate examples. Want a quick outline?", false)
+      }, 500)
+    })
+
+    clearButton.addEventListener("click", () => {
+      messages = []
+      saveMessages()
+      renderMessages()
+    })
+
+    newButton.addEventListener("click", () => {
+      messages = [{ text: "New chat started. What should we explore?", isUser: false }]
+      saveMessages()
+      renderMessages()
+    })
+
+    document.querySelectorAll("[data-chat]").forEach((button) => {
+      button.addEventListener("click", () => {
+        document
+          .querySelectorAll("[data-chat]")
+          .forEach((item) => item.classList.remove("bg-slate-900", "border", "border-slate-800"))
+        button.classList.add("bg-slate-900", "border", "border-slate-800")
+      })
+    })
+  </script>
+</body>
+</html>

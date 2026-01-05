@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-white">
+  <div class="flex h-screen">
+    <aside class="w-64 border-r border-slate-800 p-4">
+      <div class="text-xl font-bold mb-8">Dashboard</div>
+      <nav class="space-y-2" data-nav>
+        <button class="w-full flex items-center gap-3 px-4 py-2 bg-blue-600 rounded-lg" data-section="overview">
+          <span>Overview</span>
+        </button>
+        <button class="w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-900 rounded-lg" data-section="analytics">
+          <span>Analytics</span>
+        </button>
+        <button class="w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-900 rounded-lg" data-section="users">
+          <span>Users</span>
+        </button>
+        <button class="w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-900 rounded-lg" data-section="settings">
+          <span>Settings</span>
+        </button>
+      </nav>
+    </aside>
+
+    <main class="flex-1 overflow-auto p-8">
+      <section data-panel="overview">
+        <h1 class="text-3xl font-bold mb-8">Overview</h1>
+        <div class="grid md:grid-cols-4 gap-6 mb-8">
+          <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
+            <p class="text-slate-400 mb-2">Total Revenue</p>
+            <p class="text-3xl font-bold" data-metric="revenue">$45,231</p>
+            <p class="text-green-500 text-sm mt-2">+20.1% from last month</p>
+          </div>
+          <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
+            <p class="text-slate-400 mb-2">Active Users</p>
+            <p class="text-3xl font-bold" data-metric="users">2,350</p>
+            <p class="text-green-500 text-sm mt-2">+180 this week</p>
+          </div>
+          <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
+            <p class="text-slate-400 mb-2">Sales</p>
+            <p class="text-3xl font-bold" data-metric="sales">573</p>
+            <p class="text-green-500 text-sm mt-2">+12% from yesterday</p>
+          </div>
+          <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
+            <p class="text-slate-400 mb-2">Conversion</p>
+            <p class="text-3xl font-bold" data-metric="conversion">3.2%</p>
+            <p class="text-red-500 text-sm mt-2">-0.4% from last month</p>
+          </div>
+        </div>
+        <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
+          <h2 class="text-xl font-semibold mb-4">Recent Activity</h2>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="font-medium">New user registration</p>
+                <p class="text-sm text-slate-400">john@example.com</p>
+              </div>
+              <span class="text-slate-400 text-sm">2 min ago</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="font-medium">Payment received</p>
+                <p class="text-sm text-slate-400">$299.00 from Customer #1234</p>
+              </div>
+              <span class="text-slate-400 text-sm">15 min ago</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section data-panel="analytics" class="hidden">
+        <div class="flex items-center justify-between mb-6">
+          <h1 class="text-3xl font-bold">Analytics</h1>
+          <div class="flex gap-2">
+            <button class="px-3 py-1 rounded-full bg-blue-600" data-range="7">7d</button>
+            <button class="px-3 py-1 rounded-full border" data-range="30">30d</button>
+            <button class="px-3 py-1 rounded-full border" data-range="90">90d</button>
+          </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
+            <h2 class="text-xl font-semibold mb-4">Traffic</h2>
+            <p class="text-4xl font-bold" data-traffic>120k</p>
+            <p class="text-sm text-slate-400">Sessions in selected range</p>
+          </div>
+          <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
+            <h2 class="text-xl font-semibold mb-4">Activation</h2>
+            <p class="text-4xl font-bold" data-activation>18%</p>
+            <p class="text-sm text-slate-400">New users activated</p>
+          </div>
+        </div>
+      </section>
+
+      <section data-panel="users" class="hidden">
+        <div class="flex items-center justify-between mb-6">
+          <h1 class="text-3xl font-bold">Users</h1>
+          <input class="bg-slate-900 border border-slate-800 rounded-lg px-4 py-2" placeholder="Search" data-user-search />
+        </div>
+        <div class="space-y-3" data-user-list>
+          <div class="bg-slate-900 border border-slate-800 rounded-lg p-4">Ana Lima - Active</div>
+          <div class="bg-slate-900 border border-slate-800 rounded-lg p-4">Jordan Lee - Active</div>
+          <div class="bg-slate-900 border border-slate-800 rounded-lg p-4">Priya Patel - Invited</div>
+          <div class="bg-slate-900 border border-slate-800 rounded-lg p-4">Alex Chen - Active</div>
+        </div>
+      </section>
+
+      <section data-panel="settings" class="hidden">
+        <h1 class="text-3xl font-bold mb-6">Settings</h1>
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-4">
+          <label class="flex items-center gap-3">
+            <input type="checkbox" checked data-setting="weeklyReports" />
+            <span>Email weekly reports</span>
+          </label>
+          <label class="flex items-center gap-3">
+            <input type="checkbox" data-setting="darkTheme" />
+            <span>Enable dark theme</span>
+          </label>
+          <button class="bg-blue-600 px-6 py-2 rounded-lg">Save settings</button>
+          <p class="text-sm text-slate-400 hidden" data-settings-saved>Settings saved.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    document.querySelectorAll("[data-section]").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll("[data-section]").forEach((item) => item.classList.remove("bg-blue-600"))
+        button.classList.add("bg-blue-600")
+        const target = button.getAttribute("data-section")
+        document.querySelectorAll("[data-panel]").forEach((panel) => {
+          panel.classList.toggle("hidden", panel.getAttribute("data-panel") !== target)
+        })
+      })
+    })
+
+    const ranges = {
+      7: { traffic: "120k", activation: "18%" },
+      30: { traffic: "410k", activation: "21%" },
+      90: { traffic: "1.1M", activation: "19%" },
+    }
+    document.querySelectorAll("[data-range]").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll("[data-range]").forEach((item) => item.classList.remove("bg-blue-600"))
+        button.classList.add("bg-blue-600")
+        const range = button.getAttribute("data-range")
+        document.querySelector("[data-traffic]").textContent = ranges[range].traffic
+        document.querySelector("[data-activation]").textContent = ranges[range].activation
+      })
+    })
+
+    const search = document.querySelector("[data-user-search]")
+    const list = document.querySelector("[data-user-list]")
+    search.addEventListener("input", () => {
+      const value = search.value.toLowerCase()
+      list.querySelectorAll("div").forEach((item) => {
+        item.classList.toggle("hidden", !item.textContent.toLowerCase().includes(value))
+      })
+    })
+
+    const settingsButton = document.querySelector("[data-panel='settings'] button")
+    const settingsSaved = document.querySelector("[data-settings-saved]")
+    const settingsInputs = document.querySelectorAll("[data-setting]")
+    const settingsStorageKey = "demo-admin-settings"
+
+    function loadSettings() {
+      try {
+        const raw = localStorage.getItem(settingsStorageKey)
+        if (!raw) return null
+        const parsed = JSON.parse(raw)
+        return parsed && typeof parsed === "object" ? parsed : null
+      } catch (error) {
+        return null
+      }
+    }
+
+    function saveSettings() {
+      const data = {}
+      settingsInputs.forEach((input) => {
+        const key = input.getAttribute("data-setting")
+        data[key] = input.checked
+      })
+      try {
+        localStorage.setItem(settingsStorageKey, JSON.stringify(data))
+      } catch (error) {
+        return
+      }
+    }
+
+    const savedSettings = loadSettings()
+    if (savedSettings) {
+      settingsInputs.forEach((input) => {
+        const key = input.getAttribute("data-setting")
+        if (key && key in savedSettings) {
+          input.checked = !!savedSettings[key]
+        }
+      })
+    }
+
+    settingsButton.addEventListener("click", () => {
+      saveSettings()
+      settingsSaved.classList.remove("hidden")
+    })
+  </script>
+</body>
+</html>

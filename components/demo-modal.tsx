@@ -2,32 +2,60 @@
 
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { getTemplateHTML } from "@/lib/templates"
+import { fetchTemplateHtml } from "@/lib/template-html"
 import { Monitor, Smartphone, Download, X } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 interface DemoModalProps {
   isOpen: boolean
   onClose: () => void
-  templateId: number
   templateName: string
+  htmlFile: string
 }
 
-export function DemoModal({ isOpen, onClose, templateId, templateName }: DemoModalProps) {
+export function DemoModal({ isOpen, onClose, templateName, htmlFile }: DemoModalProps) {
   const [viewMode, setViewMode] = useState<"desktop" | "mobile">("desktop")
-  const previewHtml = getPreviewHTML(templateId)
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ""
+  const [previewHtml, setPreviewHtml] = useState("")
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    let active = true
+    const loadPreview = async () => {
+      setIsLoading(true)
+      try {
+        const html = await fetchTemplateHtml(htmlFile, basePath)
+        if (!active) return
+        setPreviewHtml(injectGuardScript(html))
+      } catch (error) {
+        if (!active) return
+        setPreviewHtml(`<html><body>Preview unavailable.</body></html>`)
+      } finally {
+        if (active) setIsLoading(false)
+      }
+    }
+    if (isOpen) {
+      loadPreview()
+    }
+    return () => {
+      active = false
+    }
+  }, [basePath, htmlFile, isOpen])
 
   const handleDownload = () => {
-    const html = getTemplateHTML(templateId)
-    const blob = new Blob([html], { type: "text/html" })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement("a")
-    a.href = url
-    a.download = `${templateName.toLowerCase().replace(/\s+/g, "-")}.html`
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-    URL.revokeObjectURL(url)
+    fetchTemplateHtml(htmlFile, basePath)
+      .then((html) => {
+        const blob = new Blob([html], { type: "text/html" })
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement("a")
+        a.href = url
+        a.download = `${templateName.toLowerCase().replace(/\s+/g, "-")}.html`
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+        URL.revokeObjectURL(url)
+      })
+      .catch(() => null)
   }
 
   return (
@@ -77,22 +105,25 @@ export function DemoModal({ isOpen, onClose, templateId, templateName }: DemoMod
         </div>
 
         <div className="flex items-center justify-center w-full h-[calc(100vh-64px)] bg-muted/20 p-0">
-          <iframe
-            sandbox="allow-scripts allow-same-origin"
-            srcDoc={previewHtml}
-            className={`bg-white transition-all duration-300 ${
-              viewMode === "mobile" ? "w-[375px] h-[812px]" : "w-full h-full"
-            }`}
-            title={`${templateName} Demo`}
-          />
+          {isLoading ? (
+            <div className="text-sm text-muted-foreground">Loading preview...</div>
+          ) : (
+            <iframe
+              sandbox="allow-scripts allow-same-origin"
+              srcDoc={previewHtml}
+              className={`bg-white transition-all duration-300 ${
+                viewMode === "mobile" ? "w-[375px] h-[812px]" : "w-full h-full"
+              }`}
+              title={`${templateName} Demo`}
+            />
+          )}
         </div>
       </DialogContent>
     </Dialog>
   )
 }
 
-function getPreviewHTML(templateId: number): string {
-  const html = getTemplateHTML(templateId)
+function injectGuardScript(html: string): string {
   const guardScript = `
 <script>
   document.addEventListener("click", (event) => {

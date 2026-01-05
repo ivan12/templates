@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creative Agency</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-slate-900">
+  <nav class="border-b bg-white/80 backdrop-blur">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="text-2xl font-bold">Agency</div>
+      <div class="flex gap-8">
+        <a href="#services" class="hover:text-blue-600">Services</a>
+        <a href="#work" class="hover:text-blue-600">Work</a>
+        <a href="#contact" class="hover:text-blue-600">Contact</a>
+        <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700" data-modal-open="contact">Start a project</button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="max-w-7xl mx-auto px-6 py-28 text-center">
+      <h1 class="text-6xl md:text-7xl font-bold mb-6">We create<br/>digital experiences</h1>
+      <p class="text-xl text-slate-600 mb-8 max-w-2xl mx-auto">Full-service agency for strategy, design, and growth.</p>
+      <button class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700" data-modal-open="contact">View Our Work</button>
+    </section>
+
+    <section id="services" class="bg-slate-50 py-20">
+      <div class="max-w-7xl mx-auto px-6">
+        <h2 class="text-4xl font-bold mb-12 text-center">Our Services</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="bg-white p-8 rounded-xl" data-service>
+            <div class="text-4xl mb-4">Brand</div>
+            <h3 class="text-2xl font-bold mb-4">Brand Design</h3>
+            <p class="text-slate-600">Naming, identity, and positioning.</p>
+            <button class="text-blue-600 mt-4" data-service-toggle>Details</button>
+            <p class="text-slate-600 mt-3 hidden" data-service-details>Includes workshops, messaging, and visual systems.</p>
+          </div>
+          <div class="bg-white p-8 rounded-xl" data-service>
+            <div class="text-4xl mb-4">Web</div>
+            <h3 class="text-2xl font-bold mb-4">Web Development</h3>
+            <p class="text-slate-600">Fast, responsive websites.</p>
+            <button class="text-blue-600 mt-4" data-service-toggle>Details</button>
+            <p class="text-slate-600 mt-3 hidden" data-service-details>Design systems, CMS, and analytics included.</p>
+          </div>
+          <div class="bg-white p-8 rounded-xl" data-service>
+            <div class="text-4xl mb-4">Growth</div>
+            <h3 class="text-2xl font-bold mb-4">Marketing</h3>
+            <p class="text-slate-600">Campaigns and growth strategy.</p>
+            <button class="text-blue-600 mt-4" data-service-toggle>Details</button>
+            <p class="text-slate-600 mt-3 hidden" data-service-details>SEO, paid media, and content playbooks.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="work" class="max-w-7xl mx-auto px-6 py-20">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-4xl font-bold">Featured Work</h2>
+        <div class="flex gap-2">
+          <button class="px-4 py-2 rounded-full border" data-work-prev>Prev</button>
+          <button class="px-4 py-2 rounded-full border" data-work-next>Next</button>
+        </div>
+      </div>
+      <div class="bg-slate-100 rounded-2xl p-10" data-work-slide>
+        <h3 class="text-2xl font-bold mb-3" data-work-title>Tech Startup Rebrand</h3>
+        <p class="text-slate-600" data-work-desc>Complete identity and website for a Series A startup.</p>
+      </div>
+    </section>
+
+    <section id="contact" class="bg-slate-900 text-white py-20">
+      <div class="max-w-4xl mx-auto px-6">
+        <h2 class="text-4xl font-bold mb-6">Start a project</h2>
+        <form class="grid md:grid-cols-2 gap-4" data-contact-form>
+          <input class="px-4 py-3 rounded-lg text-slate-900" placeholder="Name" required />
+          <input class="px-4 py-3 rounded-lg text-slate-900" placeholder="Email" type="email" required />
+          <textarea class="md:col-span-2 px-4 py-3 rounded-lg text-slate-900" rows="4" placeholder="Tell us about your project" required></textarea>
+          <button class="md:col-span-2 bg-blue-600 py-3 rounded-lg">Send request</button>
+        </form>
+        <p class="text-sm text-blue-200 mt-3 hidden" data-contact-success>Thanks! We will reply soon.</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="fixed inset-0 bg-black/70 hidden items-center justify-center" data-modal="contact">
+    <div class="bg-white text-slate-900 rounded-xl p-6 w-full max-w-md">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl font-semibold">Start a project</h3>
+        <button data-modal-close="contact" class="text-slate-500">X</button>
+      </div>
+      <p class="text-slate-600 mb-4">Tell us about your idea and we will respond within 24 hours.</p>
+      <button data-modal-close="contact" class="w-full bg-blue-600 text-white py-2 rounded-lg">Close</button>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll("a[href^='#']").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault()
+        const target = document.querySelector(link.getAttribute("href"))
+        if (target) target.scrollIntoView({ behavior: "smooth" })
+      })
+    })
+
+    document.querySelectorAll("[data-service-toggle]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const details = button.parentElement.querySelector("[data-service-details]")
+        if (details) details.classList.toggle("hidden")
+      })
+    })
+
+    const workItems = [
+      { title: "Tech Startup Rebrand", desc: "Complete identity and website for a Series A startup." },
+      { title: "E-commerce Platform", desc: "Modern shopping experience for sustainable fashion brand." },
+      { title: "Health App", desc: "Product design and growth strategy for wellness platform." },
+    ]
+    let workIndex = 0
+    const workTitle = document.querySelector("[data-work-title]")
+    const workDesc = document.querySelector("[data-work-desc]")
+
+    function renderWork() {
+      workTitle.textContent = workItems[workIndex].title
+      workDesc.textContent = workItems[workIndex].desc
+    }
+
+    document.querySelector("[data-work-next]").addEventListener("click", () => {
+      workIndex = (workIndex + 1) % workItems.length
+      renderWork()
+    })
+
+    document.querySelector("[data-work-prev]").addEventListener("click", () => {
+      workIndex = (workIndex - 1 + workItems.length) % workItems.length
+      renderWork()
+    })
+
+    document.querySelectorAll("[data-modal-open]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const target = button.getAttribute("data-modal-open")
+        const modal = document.querySelector("[data-modal='" + target + "']")
+        if (modal) {
+          modal.classList.remove("hidden")
+          modal.classList.add("flex")
+        }
+      })
+    })
+
+    document.querySelectorAll("[data-modal-close]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const target = button.getAttribute("data-modal-close")
+        const modal = document.querySelector("[data-modal='" + target + "']")
+        if (modal) {
+          modal.classList.add("hidden")
+          modal.classList.remove("flex")
+        }
+      })
+    })
+
+    const contactForm = document.querySelector("[data-contact-form]")
+    const contactSuccess = document.querySelector("[data-contact-success]")
+    contactForm.addEventListener("submit", (event) => {
+      event.preventDefault()
+      contactSuccess.classList.remove("hidden")
+    })
+  </script>
+</body>
+</html>
