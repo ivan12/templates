@@ -38,6 +38,23 @@ Upload the output of your build to your server's `templates/` directory.
 - Home page reads app config and categories from Firebase and supports category filtering with a combobox
 - Template previews/downloads load HTML from `public/templatesCode`
 
+## Firebase config
+
+Update `firebaseconfig.js` with your Firebase project credentials.
+
+You can find the values in Firebase Console > Project settings > General > Your apps.
+
+Required keys:
+
+- `apiKey`
+- `authDomain`
+- `databaseURL` (Realtime Database)
+- `projectId`
+- `storageBucket`
+- `messagingSenderId`
+- `appId`
+- `measurementId`
+
 ## GitHub
 
 - Profile: https://github.com/ivan12
