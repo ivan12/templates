@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { TemplateItem, templateItems } from "@/lib/template-items"
 import { deleteTemplateItem, saveTemplateItem, subscribeTemplateItems } from "@/lib/firebase-templates"
+import { ensureAdminCredentials, getAdminCredentials } from "@/lib/firebase-admin"
 import { AppConfig, saveAppConfig, subscribeAppConfig } from "@/lib/firebase-config"
 import { TemplateCategory, deleteCategory, saveCategory, subscribeCategories } from "@/lib/firebase-categories"
 
@@ -56,6 +57,13 @@ const emptyCategory = {
   order: 0,
 }
 
+const defaultAdminCredentials = {
+  username: "admin",
+  password: "coragemivan",
+}
+
+const authStorageKey = "admin-authenticated"
+
 function tagsToString(tags: string[]) {
   return tags.join(", ")
 }
@@ -86,8 +94,14 @@ export default function AdminTemplates() {
   const [removeTarget, setRemoveTarget] = useState<TemplateItem | null>(null)
   const hasSeededCategories = useRef(false)
   const categoriesSnapshot = useRef<Map<string, string>>(new Map())
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [loginError, setLoginError] = useState("")
+  const [loginForm, setLoginForm] = useState({ username: "", password: "" })
 
   useEffect(() => {
+    const storedAuth = typeof window !== "undefined" ? window.localStorage.getItem(authStorageKey) : null
+    setIsAuthenticated(storedAuth === "true")
+
     const unsubscribeTemplates = subscribeTemplateItems((nextItems) => {
       setItems(nextItems.length ? nextItems : templateItems)
     })
@@ -106,6 +120,7 @@ export default function AdminTemplates() {
       setCategories(itemsFromDb)
       categoriesSnapshot.current = new Map(itemsFromDb.map((category) => [category.id, category.name]))
     })
+    ensureAdminCredentials(defaultAdminCredentials).catch(() => null)
     return () => {
       unsubscribeTemplates()
       unsubscribeConfig()
@@ -154,6 +169,38 @@ export default function AdminTemplates() {
 
   const handleSave = async (item: TemplateItem) => {
     await saveTemplateItem(item)
+  }
+
+  const handleLogin = async () => {
+    setLoginError("")
+    try {
+      const credentials = await getAdminCredentials()
+      if (!credentials) {
+        setLoginError("Admin credentials not found.")
+        return
+      }
+      if (
+        credentials.username === loginForm.username.trim() &&
+        credentials.password === loginForm.password
+      ) {
+        if (typeof window !== "undefined") {
+          window.localStorage.setItem(authStorageKey, "true")
+        }
+        setIsAuthenticated(true)
+        setLoginForm({ username: "", password: "" })
+        return
+      }
+      setLoginError("Invalid username or password.")
+    } catch (error) {
+      setLoginError("Login failed.")
+    }
+  }
+
+  const handleLogout = () => {
+    if (typeof window !== "undefined") {
+      window.localStorage.removeItem(authStorageKey)
+    }
+    setIsAuthenticated(false)
   }
 
   const handleToggleActive = async (id: number, value: boolean) => {
@@ -245,10 +292,50 @@ export default function AdminTemplates() {
             <h1 className="text-2xl font-semibold">Templates Admin</h1>
             <p className="text-sm text-slate-400">Dados via Firebase. HTML fica em templatesCode.</p>
           </div>
+          {isAuthenticated && (
+            <Button variant="outline" className="border-slate-700" onClick={handleLogout}>
+              Logout
+            </Button>
+          )}
         </div>
       </header>
 
       <main className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-10">
+        {!isAuthenticated && (
+          <Card className="max-w-md border-slate-800 bg-slate-900/50 text-white p-6 space-y-4">
+            <div>
+              <h2 className="text-lg font-semibold">Admin login</h2>
+              <p className="text-xs text-slate-400">Enter your credentials to continue.</p>
+            </div>
+            <div className="space-y-3">
+              <div className="space-y-2">
+                <label className="text-xs uppercase tracking-wide text-slate-400">username</label>
+                <Input
+                  value={loginForm.username}
+                  onChange={(event) => setLoginForm((current) => ({ ...current, username: event.target.value }))}
+                  className="bg-slate-950 border-slate-800 text-white"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs uppercase tracking-wide text-slate-400">password</label>
+                <Input
+                  type="password"
+                  value={loginForm.password}
+                  onChange={(event) => setLoginForm((current) => ({ ...current, password: event.target.value }))}
+                  className="bg-slate-950 border-slate-800 text-white"
+                />
+              </div>
+              {loginError && <p className="text-xs text-red-400">{loginError}</p>}
+            </div>
+            <div className="flex justify-end">
+              <Button className="bg-blue-600 hover:bg-blue-500" onClick={handleLogin}>
+                Login
+              </Button>
+            </div>
+          </Card>
+        )}
+
+        {isAuthenticated && (
         <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as typeof activeTab)}>
           <TabsList className="bg-slate-900/60 border border-slate-800">
             <TabsTrigger
@@ -606,6 +693,7 @@ export default function AdminTemplates() {
             ))}
           </TabsContent>
         </Tabs>
+        )}
 
         <AlertDialog open={!!removeTarget} onOpenChange={(open) => !open && setRemoveTarget(null)}>
           <AlertDialogContent className="bg-slate-950 border-slate-800 text-white">
