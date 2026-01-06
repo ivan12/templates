@@ -34,8 +34,9 @@ Upload the output of your build to your server's `templates/` directory.
 ## Recent updates
 
 - Admin area with tabs for Home, Templates, and Categories stored in Firebase Realtime Database
+- Admin login with username/password stored in Firebase
 - Template metadata now includes `order`, `active`, and `htmlFile` for ordering, visibility, and HTML file mapping
-- Home page reads app config and categories from Firebase and supports category filtering with a combobox
+- Home page reads app config and categories from Firebase, supports category filtering and pagination (15 per page)
 - Template previews/downloads load HTML from `public/templatesCode`
 
 ## Firebase config
