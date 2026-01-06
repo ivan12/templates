@@ -26,6 +26,7 @@ export function TemplateShowcase() {
   const [selectedCategory, setSelectedCategory] = useState("ALL")
   const [selectedTemplate, setSelectedTemplate] = useState<{ id: number; name: string; htmlFile: string } | null>(null)
   const [items, setItems] = useState(templateItems)
+  const [currentPage, setCurrentPage] = useState(1)
   const [appConfig, setAppConfig] = useState({
     titleApp: "Templates",
     titleHome: "Start building in seconds",
@@ -72,6 +73,10 @@ export function TemplateShowcase() {
     const matchesCategory = selectedCategory === "ALL" || template.category === selectedCategory
     return matchesSearch && matchesCategory
   })
+  const pageSize = 15
+  const totalPages = Math.max(1, Math.ceil(filteredTemplates.length / pageSize))
+  const safePage = Math.min(currentPage, totalPages)
+  const pagedTemplates = filteredTemplates.slice((safePage - 1) * pageSize, safePage * pageSize)
 
   const handleDownload = async (template: (typeof items)[0]) => {
     try {
@@ -96,8 +101,12 @@ export function TemplateShowcase() {
 
   const handleResetFilters = () => {
     setSearchQuery("")
-    setSelectedCategory(null)
+    setSelectedCategory("ALL")
+    setCurrentPage(1)
   }
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [searchQuery, selectedCategory])
 
   return (
     <div className="min-h-screen bg-[oklch(0.08_0.01_260)]">
@@ -187,7 +196,7 @@ export function TemplateShowcase() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredTemplates.map((template) => (
+          {pagedTemplates.map((template) => (
             <Card
               key={template.id}
               className="group overflow-hidden border-border bg-card hover:border-primary/50 transition-all duration-300"
@@ -225,6 +234,27 @@ export function TemplateShowcase() {
         {filteredTemplates.length === 0 && (
           <div className="text-center py-12">
             <p className="text-muted-foreground">No templates found. Try adjusting your search.</p>
+          </div>
+        )}
+        {filteredTemplates.length > 0 && totalPages > 1 && (
+          <div className="flex items-center justify-center gap-2 pt-8">
+            <button
+              className="px-3 py-2 text-sm rounded-md border border-border bg-card text-card-foreground disabled:opacity-50"
+              onClick={() => setCurrentPage((page) => Math.max(1, page - 1))}
+              disabled={safePage === 1}
+            >
+              Prev
+            </button>
+            <span className="text-sm text-muted-foreground">
+              Page {safePage} of {totalPages}
+            </span>
+            <button
+              className="px-3 py-2 text-sm rounded-md border border-border bg-card text-card-foreground disabled:opacity-50"
+              onClick={() => setCurrentPage((page) => Math.min(totalPages, page + 1))}
+              disabled={safePage === totalPages}
+            >
+              Next
+            </button>
           </div>
         )}
       </main>
