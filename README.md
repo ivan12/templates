@@ -70,8 +70,3 @@ Every coffee helps turn ideas into code, games, and new features. 💛
 [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Support-orange?style=for-the-badge&logo=buy-me-a-coffee)](https://buymeacoffee.com/amorimivan1)
 
 ---
-
-## GitHub
-
-- Profile: https://github.com/ivan12
-- Repo: https://github.com/ivan12/templates
