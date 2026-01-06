@@ -293,7 +293,7 @@ export default function AdminTemplates() {
             <p className="text-sm text-slate-400">Dados via Firebase. HTML fica em templatesCode.</p>
           </div>
           {isAuthenticated && (
-            <Button variant="outline" className="border-slate-700" onClick={handleLogout}>
+            <Button className="bg-slate-900 hover:bg-slate-800 text-white border border-slate-700" onClick={handleLogout}>
               Logout
             </Button>
           )}

@@ -10,20 +10,7 @@
   <div class="flex h-screen">
     <aside class="w-64 border-r border-slate-800 p-4 flex flex-col">
       <button data-new-chat class="w-full bg-blue-600 py-2 rounded-lg mb-4 hover:bg-blue-700">+ New Chat</button>
-      <div class="space-y-2 flex-1 overflow-auto" data-chat-list>
-        <button class="w-full text-left p-3 bg-slate-900 rounded-lg border border-slate-800" data-chat="0">
-          <p class="text-sm font-medium">Product Ideas</p>
-          <p class="text-xs text-slate-400">2 hours ago</p>
-        </button>
-        <button class="w-full text-left p-3 hover:bg-slate-900 rounded-lg" data-chat="1">
-          <p class="text-sm">Marketing Strategy</p>
-          <p class="text-xs text-slate-400">Yesterday</p>
-        </button>
-        <button class="w-full text-left p-3 hover:bg-slate-900 rounded-lg" data-chat="2">
-          <p class="text-sm">Code Review</p>
-          <p class="text-xs text-slate-400">2 days ago</p>
-        </button>
-      </div>
+      <div class="space-y-2 flex-1 overflow-auto" data-chat-list></div>
       <div class="mt-4 text-xs text-slate-400">AI Assistant v2.1</div>
     </aside>
 
@@ -36,14 +23,7 @@
         <button data-clear-chat class="text-sm text-slate-300 hover:text-white">Clear</button>
       </header>
 
-      <div class="flex-1 overflow-y-auto p-6 space-y-6" data-chat-feed>
-        <div class="flex gap-4">
-          <div class="w-8 h-8 bg-blue-600 rounded-full flex-shrink-0"></div>
-          <div class="bg-slate-900 rounded-xl p-4 max-w-2xl">
-            <p>Hello! I can help you with product copy, code, or strategy. What are you working on?</p>
-          </div>
-        </div>
-      </div>
+      <div class="flex-1 overflow-y-auto p-6 space-y-6" data-chat-feed></div>
 
       <form class="border-t border-slate-800 p-4" data-chat-form>
         <div class="flex gap-2">
@@ -59,59 +39,144 @@
     const form = document.querySelector("[data-chat-form]")
     const clearButton = document.querySelector("[data-clear-chat]")
     const newButton = document.querySelector("[data-new-chat]")
-    const storageKey = "demo-ai-chat-messages"
-    const defaultMessages = [
-      { text: "Hello! I can help you with product copy, code, or strategy. What are you working on?", isUser: false },
+    const chatList = document.querySelector("[data-chat-list]")
+    const storageKey = "demo-ai-chat-conversations"
+    const defaultConversations = [
+      {
+        id: "conv-1",
+        title: "Product Ideas",
+        updatedAt: Date.now() - 1000 * 60 * 120,
+        messages: [
+          { text: "Hey! Let's brainstorm a few product ideas.", isUser: false },
+          { text: "I want something for creators.", isUser: true },
+          { text: "Nice. What about a micro-course builder with templates?", isUser: false },
+        ],
+      },
+      {
+        id: "conv-2",
+        title: "Marketing Strategy",
+        updatedAt: Date.now() - 1000 * 60 * 60 * 24,
+        messages: [
+          { text: "Let's craft a go-to-market plan. Who is the target audience?", isUser: false },
+          { text: "Indie founders shipping SaaS.", isUser: true },
+          { text: "Great. We'll focus on Twitter + Product Hunt launch.", isUser: false },
+        ],
+      },
+      {
+        id: "conv-3",
+        title: "Code Review",
+        updatedAt: Date.now() - 1000 * 60 * 60 * 48,
+        messages: [
+          { text: "Share the code and I will review it.", isUser: false },
+          { text: "Here is the repo link.", isUser: true },
+          { text: "I will start with performance and accessibility.", isUser: false },
+        ],
+      },
     ]
-    let messages = loadMessages()
+    let conversations = loadConversations()
+    let activeId = conversations[0]?.id || ""
 
-    function loadMessages() {
+    function loadConversations() {
       try {
         const raw = localStorage.getItem(storageKey)
-        if (raw) {
-          const parsed = JSON.parse(raw)
-          if (Array.isArray(parsed)) {
-            return parsed.map((item) => ({ text: item.text, isUser: !!item.isUser }))
-          }
+        if (!raw) return defaultConversations
+        const parsed = JSON.parse(raw)
+        if (Array.isArray(parsed)) {
+          return parsed.map((conv) => ({
+            id: String(conv.id),
+            title: String(conv.title || "New Chat"),
+            updatedAt: Number(conv.updatedAt) || Date.now(),
+            messages: Array.isArray(conv.messages)
+              ? conv.messages.map((message) => ({ text: String(message.text), isUser: !!message.isUser }))
+              : [],
+          }))
         }
       } catch (error) {
-        return defaultMessages.map((item) => ({ text: item.text, isUser: item.isUser }))
+        return defaultConversations
       }
-      return defaultMessages.map((item) => ({ text: item.text, isUser: item.isUser }))
+      return defaultConversations
     }
 
-    function saveMessages() {
+    function saveConversations() {
       try {
-        localStorage.setItem(storageKey, JSON.stringify(messages))
+        localStorage.setItem(storageKey, JSON.stringify(conversations))
       } catch (error) {
         return
       }
     }
 
-    function renderMessages() {
-      feed.innerHTML = ""
-      messages.forEach((message) => {
-        addMessage(message.text, message.isUser, false)
-      })
+    function formatTime(timestamp) {
+      const diff = Date.now() - timestamp
+      const minutes = Math.floor(diff / 60000)
+      if (minutes < 60) return minutes + " min ago"
+      const hours = Math.floor(minutes / 60)
+      if (hours < 24) return hours + " hours ago"
+      const days = Math.floor(hours / 24)
+      if (days === 1) return "Yesterday"
+      return days + " days ago"
     }
 
-    function addMessage(text, isUser, shouldSave = true) {
+    function getActiveConversation() {
+      return conversations.find((conv) => conv.id === activeId)
+    }
+
+    function renderChatList() {
+      chatList.innerHTML = ""
+      conversations
+        .slice()
+        .sort((a, b) => b.updatedAt - a.updatedAt)
+        .forEach((conv) => {
+          const button = document.createElement("button")
+          const isActive = conv.id === activeId
+          button.className =
+            "w-full text-left p-3 rounded-lg " +
+            (isActive ? "bg-slate-900 border border-slate-800" : "hover:bg-slate-900")
+          button.setAttribute("data-chat", conv.id)
+          button.innerHTML =
+            '<p class="text-sm font-medium">' + conv.title + "</p>" +
+            '<p class="text-xs text-slate-400">' + formatTime(conv.updatedAt) + "</p>"
+          button.addEventListener("click", () => {
+            activeId = conv.id
+            renderChatList()
+            renderMessages()
+          })
+          chatList.appendChild(button)
+        })
+    }
+
+    function buildMessageElement(message) {
       const wrapper = document.createElement("div")
-      const alignment = isUser ? "flex-row-reverse" : ""
+      const alignment = message.isUser ? "flex-row-reverse" : ""
       wrapper.className = "flex gap-4 " + alignment
-      const avatarClass = isUser ? "bg-emerald-600" : "bg-blue-600"
-      const bubbleClass = isUser ? "bg-blue-900/40" : "bg-slate-900"
+      const avatarClass = message.isUser ? "bg-emerald-600" : "bg-blue-600"
+      const bubbleClass = message.isUser ? "bg-blue-900/40" : "bg-slate-900"
       wrapper.innerHTML =
         '<div class="w-8 h-8 ' + avatarClass + ' rounded-full flex-shrink-0"></div>' +
-        '<div class="' + bubbleClass + ' rounded-xl p-4 max-w-2xl">' + text + "</div>"
-      feed.appendChild(wrapper)
-      feed.scrollTop = feed.scrollHeight
-      if (shouldSave) {
-        messages.push({ text, isUser })
-        saveMessages()
-      }
+        '<div class="' + bubbleClass + ' rounded-xl p-4 max-w-2xl">' + message.text + "</div>"
+      return wrapper
     }
 
+    function renderMessages() {
+      feed.innerHTML = ""
+      const conversation = getActiveConversation()
+      if (!conversation) return
+      conversation.messages.forEach((message) => {
+        feed.appendChild(buildMessageElement(message))
+      })
+      feed.scrollTop = feed.scrollHeight
+    }
+
+    function addMessage(text, isUser) {
+      const conversation = getActiveConversation()
+      if (!conversation) return
+      conversation.messages.push({ text, isUser })
+      conversation.updatedAt = Date.now()
+      saveConversations()
+      renderChatList()
+      renderMessages()
+    }
+
+    renderChatList()
     renderMessages()
 
     form.addEventListener("submit", (event) => {
@@ -127,24 +192,28 @@
     })
 
     clearButton.addEventListener("click", () => {
-      messages = []
-      saveMessages()
+      const conversation = getActiveConversation()
+      if (!conversation) return
+      conversation.messages = []
+      conversation.updatedAt = Date.now()
+      saveConversations()
       renderMessages()
+      renderChatList()
     })
 
     newButton.addEventListener("click", () => {
-      messages = [{ text: "New chat started. What should we explore?", isUser: false }]
-      saveMessages()
+      const id = "conv-" + Date.now()
+      const newConversation = {
+        id,
+        title: "New Chat",
+        updatedAt: Date.now(),
+        messages: [{ text: "New chat started. What should we explore?", isUser: false }],
+      }
+      conversations.unshift(newConversation)
+      activeId = id
+      saveConversations()
+      renderChatList()
       renderMessages()
-    })
-
-    document.querySelectorAll("[data-chat]").forEach((button) => {
-      button.addEventListener("click", () => {
-        document
-          .querySelectorAll("[data-chat]")
-          .forEach((item) => item.classList.remove("bg-slate-900", "border", "border-slate-800"))
-        button.classList.add("bg-slate-900", "border", "border-slate-800")
-      })
     })
   </script>
 </body>
