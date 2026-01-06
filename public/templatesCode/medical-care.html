@@ -1,0 +1,530 @@
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ViaSlim | Your Medical Weight Loss Journey</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Inter', sans-serif; }
+/* Smooth scrolling */
+html { scroll-behavior: smooth; }
+/* Custom scrollbar to match tech vibe */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f9fafb; }
+::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+/* Subtle grid background pattern */
+.bg-grid {
+background-size: 40px 40px;
+background-image: linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+}
+/* Mobile mockup shadow */
+.app-shadow {
+box-shadow: 0 25px 50px -12px rgba(126, 34, 206, 0.25);
+}
+</style></head>
+<body class="antialiased bg-gray-50 text-slate-600 selection:bg-purple-100 selection:text-purple-900">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 start-0 border-b border-gray-200/60 bg-white/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between px-4 py-3">
+            <a href="#" class="flex items-center space-x-2 group">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-600 to-purple-800 flex items-center justify-center text-white">
+                    <iconify-icon icon="lucide:activity" width="18" stroke-width="1.5"></iconify-icon>
+                </div>
+                <span class="self-center text-xl font-semibold tracking-tighter text-gray-900 group-hover:text-purple-700 transition-colors">ViaSlim</span>
+            </a>
+            <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                <a href="#check" class="hidden md:inline-flex items-center justify-center px-5 py-2 text-sm font-medium text-white bg-gray-900 rounded-full hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 transition-all border border-transparent shadow-sm">
+                    Download App
+                </a>
+                <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none" aria-controls="navbar-sticky" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <iconify-icon icon="lucide:menu" width="24" stroke-width="1.5"></iconify-icon>
+                </button>
+            </div>
+            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+                <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent">
+                    <li>
+                        <a href="#how" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-purple-700 md:p-0 transition-colors">How it works</a>
+                    </li>
+                    <li>
+                        <a href="#science" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-purple-700 md:p-0 transition-colors">Science</a>
+                    </li>
+                    <li>
+                        <a href="#pricing" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-purple-700 md:p-0 transition-colors">Pricing</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-grid">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-white pointer-events-none"></div>
+        <div class="px-4 mx-auto max-w-7xl relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+                <div class="max-w-2xl">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 border border-purple-100 text-purple-700 text-xs font-medium mb-6">
+                        <span class="relative flex h-2 w-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-600"></span>
+                        </span>
+                        Now available in Switzerland
+                    </div>
+                    <h1 class="text-5xl lg:text-7xl font-semibold tracking-tight text-gray-900 mb-6 leading-[1.1]">
+                        Medical Care <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-emerald-600">re-engineered</span>
+                    </h1>
+                    <p class="text-lg text-gray-500 mb-8 font-light leading-relaxed max-w-lg">
+                        Combine modern GLP-1 medications with our intelligent app. Certified doctors, data-driven tracking, and personal guidance – all in your pocket.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium text-white bg-purple-600 rounded-xl hover:bg-purple-700 transition-all shadow-lg shadow-purple-200">
+                            Check eligibility
+                            <iconify-icon icon="lucide:arrow-right" class="ml-2" width="16" stroke-width="1.5"></iconify-icon>
+                        </a>
+                        <a href="#" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all">
+                            Discover App
+                        </a>
+                    </div>
+                    <div class="mt-8 flex items-center gap-4 text-xs text-gray-400">
+                        <div class="flex -space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white"></div>
+                            <div class="w-8 h-8 rounded-full bg-gray-300 border-2 border-white"></div>
+                            <div class="w-8 h-8 rounded-full bg-gray-400 border-2 border-white"></div>
+                        </div>
+                        <p>Trusted by over 2,000 patients in CH</p>
+                    </div>
+                </div>
+                
+                <!-- Techy App Visualization -->
+                <div class="relative lg:h-[600px] flex items-center justify-center">
+                    <!-- Background blobs -->
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-purple-200/40 to-emerald-100/40 rounded-full blur-3xl"></div>
+                    
+                    <!-- Phone Frame -->
+                    <div class="relative w-[300px] h-[600px] bg-gray-900 rounded-[3rem] p-3 shadow-2xl app-shadow border border-gray-800 rotate-[-6deg] lg:rotate-[-3deg] hover:rotate-0 transition-transform duration-700">
+                        <!-- Screen -->
+                        <div class="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative flex flex-col">
+                            <!-- Status Bar -->
+                            <div class="h-6 w-full flex justify-between items-center px-6 pt-2">
+                                <span class="text-[10px] font-medium text-gray-900">9:41</span>
+                                <div class="flex gap-1">
+                                    <div class="w-4 h-2.5 bg-gray-900 rounded-[2px]"></div>
+                                </div>
+                            </div>
+
+                            <!-- App Content -->
+                            <div class="p-6 flex-1 flex flex-col bg-gray-50/50">
+                                <div class="flex justify-between items-center mb-6">
+                                    <div>
+                                        <p class="text-xs text-gray-500">Good morning,</p>
+                                        <h3 class="text-lg font-semibold text-gray-900 tracking-tight">Sarah</h3>
+                                    </div>
+                                    <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-700">
+                                        <iconify-icon icon="lucide:user" width="20"></iconify-icon>
+                                    </div>
+                                </div>
+
+                                <!-- Weight Card -->
+                                <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 mb-4">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <span class="text-xs font-medium text-gray-500 uppercase tracking-wider">Current Weight</span>
+                                        <span class="text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded text-[10px] font-medium">-2.4 kg</span>
+                                    </div>
+                                    <div class="text-2xl font-semibold text-gray-900 tracking-tight mb-4">74.2 <span class="text-sm font-normal text-gray-400">kg</span></div>
+                                    <!-- Fake Graph -->
+                                    <div class="h-12 flex items-end justify-between gap-1">
+                                        <div class="w-full bg-purple-100 rounded-t h-[40%]"></div>
+                                        <div class="w-full bg-purple-100 rounded-t h-[50%]"></div>
+                                        <div class="w-full bg-purple-100 rounded-t h-[45%]"></div>
+                                        <div class="w-full bg-purple-100 rounded-t h-[60%]"></div>
+                                        <div class="w-full bg-purple-100 rounded-t h-[55%]"></div>
+                                        <div class="w-full bg-purple-600 rounded-t h-[70%]"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Meds Card -->
+                                <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 mb-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-700">
+                                            <iconify-icon icon="lucide:pill" width="20"></iconify-icon>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-sm font-medium text-gray-900">Weekly Dose</h4>
+                                            <p class="text-xs text-gray-400">Due today</p>
+                                        </div>
+                                        <div class="ml-auto w-6 h-6 rounded-full border-2 border-emerald-200 flex items-center justify-center">
+                                            <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Chat Card -->
+                                <div class="bg-purple-600 p-4 rounded-2xl shadow-lg shadow-purple-200 text-white mt-auto">
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm">
+                                            <iconify-icon icon="lucide:stethoscope" width="16"></iconify-icon>
+                                        </div>
+                                        <span class="text-sm font-medium">Dr. Weber</span>
+                                    </div>
+                                    <p class="text-xs text-white/90 leading-relaxed">
+                                        "Progress looks great, Sarah. We can adjust the dose next month."
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- Bottom Nav -->
+                            <div class="h-16 bg-white border-t border-gray-100 flex justify-around items-center px-4">
+                                <iconify-icon icon="lucide:home" class="text-purple-600" width="24"></iconify-icon>
+                                <iconify-icon icon="lucide:bar-chart-2" class="text-gray-300" width="24"></iconify-icon>
+                                <iconify-icon icon="lucide:message-square" class="text-gray-300" width="24"></iconify-icon>
+                                <iconify-icon icon="lucide:user" class="text-gray-300" width="24"></iconify-icon>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Floating Badge -->
+                    <div class="absolute bottom-20 right-0 md:-right-4 bg-white p-4 rounded-2xl shadow-xl border border-gray-100 animate-bounce" style="animation-duration: 3s;">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-emerald-100 p-2 rounded-lg text-emerald-700">
+                                <iconify-icon icon="lucide:check-circle" width="20"></iconify-icon>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 font-medium uppercase">Success</p>
+                                <p class="text-sm font-semibold text-gray-900">-15% body weight</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted By -->
+    <section class="border-y border-gray-100 bg-white py-10">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-sm text-gray-400 font-medium mb-6">SCIENCE-BACKED &amp; APPROVED</p>
+            <div class="flex flex-wrap justify-center gap-8 md:gap-16 opacity-40 grayscale hover:grayscale-0 transition-all duration-500">
+                 <!-- Mock Logos for illustration using Text -->
+                 <span class="text-xl font-bold tracking-tighter flex items-center gap-2"><iconify-icon icon="lucide:shield-check"></iconify-icon> SwissMedical</span>
+                 <span class="text-xl font-bold tracking-tighter flex items-center gap-2"><iconify-icon icon="lucide:plus-circle"></iconify-icon> HealthGuard</span>
+                 <span class="text-xl font-bold tracking-tighter flex items-center gap-2"><iconify-icon icon="lucide:award"></iconify-icon> Approved</span>
+                 <span class="text-xl font-bold tracking-tighter flex items-center gap-2"><iconify-icon icon="lucide:flask-conical"></iconify-icon> ClinicalLab</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features / The "Tech" -->
+    <section id="how" class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-semibold tracking-tight text-gray-900 mb-4">
+                    Technology meets Biology.
+                </h2>
+                <p class="text-gray-500 font-light text-lg">
+                    The old way of losing weight is broken. ViaSlim uses telemedicine and GLP-1 compounds for sustainable results without the yo-yo effect.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow group">
+                    <div class="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600 mb-6 group-hover:scale-110 transition-transform">
+                        <iconify-icon icon="lucide:smartphone-nfc" width="24" stroke-width="1.5"></iconify-icon>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 tracking-tight mb-3">Digital Assessment</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Fill out our medical questionnaire in the app. Our algorithm checks your eligibility instantly before a doctor validates it.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow group">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-700 mb-6 group-hover:scale-110 transition-transform">
+                        <iconify-icon icon="lucide:test-tube-2" width="24" stroke-width="1.5"></iconify-icon>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 tracking-tight mb-3">GLP-1 Therapy</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        We prescribe modern medications (like Wegovy® or Ozempic®) that regulate your satiety. Delivered discreetly by post.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow group">
+                    <div class="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center text-gray-900 mb-6 group-hover:scale-110 transition-transform">
+                        <iconify-icon icon="lucide:line-chart" width="24" stroke-width="1.5"></iconify-icon>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 tracking-tight mb-3">Smart Tracking</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Document side effects and weight directly in the app. Your doctor monitors your data in real-time and adjusts the dosage.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Showcase Dark Mode -->
+    <section class="py-24 bg-[#0a0a0a] text-white overflow-hidden relative">
+        <!-- Decoration -->
+        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-purple-900/20 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-emerald-900/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 text-emerald-300 text-xs font-medium mb-6 backdrop-blur-md">
+                        <iconify-icon icon="lucide:sparkles" width="12"></iconify-icon>
+                        ViaSlim App 2.0
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-semibold tracking-tight mb-6">
+                        Your doctor in your pocket.
+                    </h2>
+                    <p class="text-gray-400 text-lg font-light mb-8 max-w-md">
+                        No waiting rooms. No awkward conversations. Communicate via chat with your medical team and track your biological progress.
+                    </p>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start gap-3">
+                            <div class="mt-1 bg-purple-500/20 p-1 rounded text-purple-400">
+                                <iconify-icon icon="lucide:check" width="14" stroke-width="3"></iconify-icon>
+                            </div>
+                            <span class="text-gray-300 text-sm">24/7 Chat support with medical professionals</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="mt-1 bg-purple-500/20 p-1 rounded text-purple-400">
+                                <iconify-icon icon="lucide:check" width="14" stroke-width="3"></iconify-icon>
+                            </div>
+                            <span class="text-gray-300 text-sm">Reminders for injections and refills</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="mt-1 bg-purple-500/20 p-1 rounded text-purple-400">
+                                <iconify-icon icon="lucide:check" width="14" stroke-width="3"></iconify-icon>
+                            </div>
+                            <span class="text-gray-300 text-sm">Integration with Apple Health &amp; Google Fit</span>
+                        </li>
+                    </ul>
+
+                    <button class="bg-white text-gray-900 hover:bg-gray-200 transition px-6 py-3 rounded-lg font-medium text-sm flex items-center gap-2">
+                        <iconify-icon icon="lucide:apple" width="18"></iconify-icon>
+                        Download on App Store
+                    </button>
+                </div>
+
+                <!-- Dashboard UI Representation -->
+                <div class="relative bg-gray-900 border border-gray-800 rounded-2xl p-2 shadow-2xl">
+                    <div class="bg-[#0f1115] rounded-xl overflow-hidden border border-gray-800">
+                        <!-- Header UI -->
+                        <div class="border-b border-gray-800 p-4 flex justify-between items-center">
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/50"></div>
+                            </div>
+                            <div class="text-xs text-gray-500 font-mono">viaslim_dashboard.exe</div>
+                        </div>
+                        <!-- Content -->
+                        <div class="p-6 grid grid-cols-2 gap-4">
+                            <!-- Widget 1 -->
+                            <div class="col-span-2 bg-gray-800/50 p-4 rounded-lg border border-gray-700/50">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h4 class="text-gray-300 text-sm">Weight Trend</h4>
+                                    <iconify-icon icon="lucide:trending-down" class="text-emerald-400"></iconify-icon>
+                                </div>
+                                <div class="flex items-end gap-1 h-24">
+                                    <div class="w-full bg-purple-500/20 rounded-t h-[80%]"></div>
+                                    <div class="w-full bg-purple-500/20 rounded-t h-[75%]"></div>
+                                    <div class="w-full bg-purple-500/20 rounded-t h-[70%]"></div>
+                                    <div class="w-full bg-purple-500/20 rounded-t h-[60%]"></div>
+                                    <div class="w-full bg-purple-500/20 rounded-t h-[55%]"></div>
+                                    <div class="w-full bg-purple-500/20 rounded-t h-[48%]"></div>
+                                    <div class="w-full bg-gradient-to-t from-purple-600 to-purple-400 rounded-t h-[40%]"></div>
+                                </div>
+                            </div>
+                            <!-- Widget 2 -->
+                            <div class="bg-gray-800/50 p-4 rounded-lg border border-gray-700/50">
+                                <h4 class="text-gray-400 text-xs mb-1">Next Dose</h4>
+                                <div class="text-xl font-medium text-white">Thu, Oct 14</div>
+                                <div class="text-xs text-purple-400 mt-2 flex items-center gap-1">
+                                    <iconify-icon icon="lucide:clock" width="10"></iconify-icon> 08:00 AM
+                                </div>
+                            </div>
+                            <!-- Widget 3 -->
+                            <div class="bg-emerald-900/20 p-4 rounded-lg border border-emerald-900/50">
+                                <h4 class="text-gray-400 text-xs mb-1">BMI Status</h4>
+                                <div class="text-xl font-medium text-emerald-400">Improved</div>
+                                <div class="text-xs text-emerald-600 mt-2">-2.1 points</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing / Offer -->
+    <section id="pricing" class="py-24 px-4 bg-white">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-semibold tracking-tight text-gray-900 mb-4">Transparent Pricing</h2>
+                <p class="text-gray-500">Start your journey now. No hidden costs.</p>
+            </div>
+            
+            <div class="relative bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+                <div class="absolute top-0 right-0 p-4">
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide">Recommended</span>
+                </div>
+                
+                <div class="p-8 md:p-10">
+                    <div class="flex items-baseline gap-2 mb-6">
+                        <span class="text-5xl font-semibold tracking-tighter text-gray-900">CHF 49</span>
+                        <span class="text-gray-500">/ month</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mb-8">+ Medication costs (often covered by supplementary insurance)</p>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
+                                <iconify-icon icon="lucide:check" width="12" stroke-width="2.5"></iconify-icon>
+                            </div>
+                            <span class="text-sm text-gray-700">Medical assessment &amp; prescription issuance</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
+                                <iconify-icon icon="lucide:check" width="12" stroke-width="2.5"></iconify-icon>
+                            </div>
+                            <span class="text-sm text-gray-700">Access to ViaSlim App &amp; tracking</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
+                                <iconify-icon icon="lucide:check" width="12" stroke-width="2.5"></iconify-icon>
+                            </div>
+                            <span class="text-sm text-gray-700">Ongoing dosage adjustment by doctors</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
+                                <iconify-icon icon="lucide:check" width="12" stroke-width="2.5"></iconify-icon>
+                            </div>
+                            <span class="text-sm text-gray-700">Free medication delivery</span>
+                        </div>
+                    </div>
+
+                    <a href="#" class="block w-full text-center bg-purple-600 text-white font-medium py-4 rounded-xl hover:bg-purple-700 transition shadow-lg shadow-purple-100">
+                        Get Started
+                    </a>
+                    <p class="text-center text-xs text-gray-400 mt-4">Cancel anytime. 100% money-back guarantee if ineligible.</p>
+                </div>
+                <div class="bg-gray-50 p-4 border-t border-gray-100 text-center">
+                    <p class="text-xs text-gray-500 flex justify-center items-center gap-2">
+                        <iconify-icon icon="lucide:lock" width="12"></iconify-icon>
+                        Your data is encrypted and securely hosted in Switzerland.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 bg-gray-50 border-t border-gray-200">
+        <div class="max-w-2xl mx-auto px-4">
+            <h3 class="text-2xl font-semibold tracking-tight text-gray-900 mb-8 text-center">Frequently Asked Questions</h3>
+            
+            <div class="space-y-4">
+                <details class="group bg-white rounded-lg border border-gray-200 p-4 [&amp;_summary::-webkit-details-marker]:hidden cursor-pointer">
+                    <summary class="flex items-center justify-between text-gray-900 font-medium text-sm">
+                        How quickly will I see results?
+                        <span class="text-gray-400 group-open:rotate-180 transition-transform duration-300">
+                            <iconify-icon icon="lucide:chevron-down" width="20"></iconify-icon>
+                        </span>
+                    </summary>
+                    <div class="mt-4 text-sm text-gray-500 leading-relaxed">
+                        Most patients lose weight within the first 4 weeks. Clinical studies show a weight loss of approx. 15% within a year when combined with lifestyle changes.
+                    </div>
+                </details>
+
+                <details class="group bg-white rounded-lg border border-gray-200 p-4 [&amp;_summary::-webkit-details-marker]:hidden cursor-pointer">
+                    <summary class="flex items-center justify-between text-gray-900 font-medium text-sm">
+                        Is the medication safe?
+                        <span class="text-gray-400 group-open:rotate-180 transition-transform duration-300">
+                            <iconify-icon icon="lucide:chevron-down" width="20"></iconify-icon>
+                        </span>
+                    </summary>
+                    <div class="mt-4 text-sm text-gray-500 leading-relaxed">
+                        GLP-1 analogues have been used for over 10 years. Like any medication, side effects can occur (e.g., nausea at the beginning), but these usually subside quickly. Our doctors will explain everything in detail.
+                    </div>
+                </details>
+
+                <details class="group bg-white rounded-lg border border-gray-200 p-4 [&amp;_summary::-webkit-details-marker]:hidden cursor-pointer">
+                    <summary class="flex items-center justify-between text-gray-900 font-medium text-sm">
+                        Does health insurance cover it?
+                        <span class="text-gray-400 group-open:rotate-180 transition-transform duration-300">
+                            <iconify-icon icon="lucide:chevron-down" width="20"></iconify-icon>
+                        </span>
+                    </summary>
+                    <div class="mt-4 text-sm text-gray-500 leading-relaxed">
+                        Basic insurance usually only covers the costs under certain criteria (BMI &gt; 35 or &gt; 28 with co-morbidities). We help you clarify this with your insurance provider.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <div class="col-span-2 md:col-span-1">
+                    <a href="#" class="flex items-center space-x-2 mb-4">
+                        <div class="w-6 h-6 rounded bg-purple-600 flex items-center justify-center text-white">
+                            <iconify-icon icon="lucide:activity" width="14"></iconify-icon>
+                        </div>
+                        <span class="text-lg font-semibold tracking-tight text-gray-900">ViaSlim</span>
+                    </a>
+                    <p class="text-xs text-gray-500 mb-4">
+                        Zurich, Switzerland 🇨🇭<br>
+                        Medical technology for a healthier life.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-xs font-semibold text-gray-900 uppercase tracking-wider mb-4">Product</h4>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-purple-600 transition">How it works</a></li>
+                        <li><a href="#" class="hover:text-purple-600 transition">Medications</a></li>
+                        <li><a href="#" class="hover:text-purple-600 transition">Success Stories</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-xs font-semibold text-gray-900 uppercase tracking-wider mb-4">Legal</h4>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-purple-600 transition">Imprint</a></li>
+                        <li><a href="#" class="hover:text-purple-600 transition">Privacy</a></li>
+                        <li><a href="#" class="hover:text-purple-600 transition">Terms</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-semibold text-gray-900 uppercase tracking-wider mb-4">Contact</h4>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><a href="mailto:support@viaslim.ch" class="hover:text-purple-600 transition">support@viaslim.ch</a></li>
+                        <li class="flex gap-4 mt-4">
+                            <a href="#" class="text-gray-400 hover:text-gray-900"><iconify-icon icon="lucide:instagram" width="18"></iconify-icon></a>
+                            <a href="#" class="text-gray-400 hover:text-gray-900"><iconify-icon icon="lucide:twitter" width="18"></iconify-icon></a>
+                            <a href="#" class="text-gray-400 hover:text-gray-900"><iconify-icon icon="lucide:linkedin" width="18"></iconify-icon></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400">
+                <p>© 2024 ViaSlim Medical AG. All rights reserved.</p>
+                <div class="mt-2 md:mt-0 flex gap-4">
+                    <span>Swiss Made Software</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+</body></html>
