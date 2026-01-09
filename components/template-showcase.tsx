@@ -10,7 +10,7 @@ import { subscribeCategories } from "@/lib/firebase-categories"
 import { subscribeTemplateItems } from "@/lib/firebase-templates"
 import { fetchTemplateHtml } from "@/lib/template-html"
 import { Coffee, Download, ExternalLink, Search, Settings } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 
 export function TemplateShowcase() {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ""
@@ -67,7 +67,24 @@ export function TemplateShowcase() {
   const visibleCategories = categories.length ? categories : derivedCategories
 
   const activeTemplates = sortedItems.filter((template) => template.active !== false)
-  const marqueeTemplates = [...activeTemplates, ...activeTemplates]
+  const shuffleTemplates = (source: typeof activeTemplates) => {
+    const next = [...source]
+    for (let i = next.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[next[i], next[j]] = [next[j], next[i]]
+    }
+    return next
+  }
+  const marqueeRows = useMemo(() => {
+    const rowOne = shuffleTemplates(activeTemplates)
+    const rowTwo = shuffleTemplates(activeTemplates)
+    const rowThree = shuffleTemplates(activeTemplates)
+    return [
+      [...rowOne, ...rowOne],
+      [...rowTwo, ...rowTwo],
+      [...rowThree, ...rowThree],
+    ]
+  }, [activeTemplates])
   const filteredTemplates = activeTemplates.filter((template) => {
     const matchesSearch =
       template.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -165,7 +182,7 @@ export function TemplateShowcase() {
           <div className="absolute inset-0 opacity-35">
             <div className="flex h-full flex-col items-center justify-center gap-6">
               <div className="hero-marquee flex w-max items-center gap-4">
-                {marqueeTemplates.map((template, index) => (
+                {marqueeRows[0].map((template, index) => (
                   <button
                     type="button"
                     key={`bg-${template.id}-${index}`}
@@ -182,7 +199,7 @@ export function TemplateShowcase() {
                 ))}
               </div>
               <div className="hero-marquee flex w-max items-center gap-4" style={{ animationDuration: "140s" }}>
-                {marqueeTemplates.map((template, index) => (
+                {marqueeRows[1].map((template, index) => (
                   <button
                     type="button"
                     key={`bg-alt-${template.id}-${index}`}
@@ -199,7 +216,7 @@ export function TemplateShowcase() {
                 ))}
               </div>
               <div className="hero-marquee flex w-max items-center gap-4" style={{ animationDuration: "160s" }}>
-                {marqueeTemplates.map((template, index) => (
+                {marqueeRows[2].map((template, index) => (
                   <button
                     type="button"
                     key={`bg-third-${template.id}-${index}`}
