@@ -339,7 +339,7 @@ export function TemplateShowcase() {
           {pagedTemplates.map((template) => (
             <Card
               key={template.id}
-              className="group overflow-hidden border-border bg-card hover:border-primary/50 transition-all duration-300"
+              className="group overflow-hidden border-border bg-card hover:border-primary/50 transition-all duration-300 p-0 gap-0"
             >
               <div className="relative aspect-[3/2] overflow-hidden bg-secondary">
                 <img
