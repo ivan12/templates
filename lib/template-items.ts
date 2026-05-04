@@ -146,4 +146,43 @@ export const templateItems: TemplateItem[] = [
     tags: ["Startup", "Auth", "Payments"],
     htmlFile: "startup-mvp.html",
   },
+  {
+    id: 12,
+    order: 12,
+    active: true,
+    title: "Zephyr",
+    subtitle:
+      "Clean energy startup landing page with AI-powered grid optimization theme, animated stats, orbit visuals, pricing, and a full feature showcase.",
+    category: "Startup",
+    urlImage: "/zephyr.png",
+    demoUrl: "#",
+    tags: ["Startup", "Green Tech", "Landing"],
+    htmlFile: "zephyr.html",
+  },
+  {
+    id: 13,
+    order: 13,
+    active: true,
+    title: "Prism",
+    subtitle:
+      "SaaS analytics platform landing page with live dashboard mock, cohort retention heatmap, integration grid, and usage-based pricing section.",
+    category: "SaaS",
+    urlImage: "/prism.png",
+    demoUrl: "#",
+    tags: ["SaaS", "Analytics", "Dashboard"],
+    htmlFile: "prism.html",
+  },
+  {
+    id: 14,
+    order: 14,
+    active: true,
+    title: "Forge",
+    subtitle:
+      "Developer tools landing page with terminal build output mock, benchmark comparison bars, feature code blocks, and a monospace dark aesthetic.",
+    category: "Dev Tools",
+    urlImage: "/forge.png",
+    demoUrl: "#",
+    tags: ["Dev Tools", "CLI", "Build System"],
+    htmlFile: "forge.html",
+  },
 ]
