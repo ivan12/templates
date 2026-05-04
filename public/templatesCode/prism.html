@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prism — Analytics that See Everything</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #06060f;
+      color: #e2e2f0;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, .font-grotesk { font-family: 'Space Grotesk', sans-serif; }
+
+    /* Noise texture overlay */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.4;
+    }
+
+    .dot-grid {
+      background-image: radial-gradient(rgba(139,92,246,0.15) 1px, transparent 1px);
+      background-size: 30px 30px;
+    }
+
+    .text-gradient-purple {
+      background: linear-gradient(135deg, #a78bfa, #c084fc, #f0abfc);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .text-gradient-multi {
+      background: linear-gradient(135deg, #818cf8, #a78bfa, #e879f9);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .glass-card {
+      background: rgba(139,92,246,0.04);
+      border: 1px solid rgba(139,92,246,0.15);
+      backdrop-filter: blur(16px);
+      transition: all 0.35s ease;
+    }
+    .glass-card:hover {
+      border-color: rgba(139,92,246,0.4);
+      background: rgba(139,92,246,0.08);
+      transform: translateY(-3px);
+    }
+
+    .btn-cta {
+      background: linear-gradient(135deg, #7c3aed, #9333ea);
+      padding: 0.8rem 2rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #fff;
+      box-shadow: 0 0 32px rgba(139,92,246,0.4);
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 0 48px rgba(139,92,246,0.6); }
+
+    .btn-ghost {
+      border: 1px solid rgba(139,92,246,0.3);
+      padding: 0.8rem 2rem;
+      border-radius: 9999px;
+      font-size: 0.9rem;
+      color: #a78bfa;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-ghost:hover { border-color: rgba(139,92,246,0.6); background: rgba(139,92,246,0.08); }
+
+    /* Chart mock */
+    .chart-bar {
+      background: linear-gradient(to top, #7c3aed, #a78bfa);
+      border-radius: 4px 4px 0 0;
+      transition: height 0.5s ease;
+    }
+    .chart-line-dot { background: #a78bfa; box-shadow: 0 0 8px rgba(167,139,250,0.8); }
+
+    /* Animated counter badge */
+    @keyframes countUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(139,92,246,0.3); }
+      50% { box-shadow: 0 0 50px rgba(139,92,246,0.7); }
+    }
+    @keyframes lineGrow {
+      from { stroke-dashoffset: 300; }
+      to { stroke-dashoffset: 0; }
+    }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+    .animate-fadeUp { animation: fadeUp 0.8s ease-out forwards; opacity: 0; }
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-500 { animation-delay: 0.5s; }
+
+    .reveal { opacity: 0; transform: translateY(40px); transition: all 0.7s cubic-bezier(0.4,0,0.2,1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+
+    /* Sparkline SVG path animation */
+    .sparkline-path {
+      stroke-dasharray: 300;
+      stroke-dashoffset: 300;
+      animation: lineGrow 2s ease-out 0.5s forwards;
+    }
+
+    /* Glow orbs */
+    .orb-purple { background: radial-gradient(circle, rgba(139,92,246,0.3) 0%, transparent 70%); }
+    .orb-pink { background: radial-gradient(circle, rgba(232,121,249,0.2) 0%, transparent 70%); }
+    .orb-blue { background: radial-gradient(circle, rgba(99,102,241,0.2) 0%, transparent 70%); }
+
+    /* Feature icon glow */
+    .icon-box {
+      background: rgba(139,92,246,0.1);
+      border: 1px solid rgba(139,92,246,0.2);
+      border-radius: 14px;
+      width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s;
+    }
+    .icon-box:hover { background: rgba(139,92,246,0.2); animation: pulse-glow 1.5s ease infinite; }
+
+    /* Shimmer tag */
+    .shimmer-tag {
+      background: linear-gradient(90deg, rgba(139,92,246,0.1), rgba(232,121,249,0.2), rgba(139,92,246,0.1));
+      background-size: 200% 100%;
+      animation: shimmer 3s linear infinite;
+    }
+
+    /* Metrics card sparkline */
+    .metric-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(139,92,246,0.12);
+      border-radius: 20px;
+      padding: 24px;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #06060f; }
+    ::-webkit-scrollbar-thumb { background: rgba(139,92,246,0.3); border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="fixed top-0 left-0 right-0 z-50 border-b border-violet-900/20 bg-[#06060f]/80 backdrop-blur-xl">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center shadow-[0_0_16px_rgba(139,92,246,0.5)]">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <span class="font-grotesk font-bold text-xl tracking-tight">Prism</span>
+      </div>
+      <div class="hidden md:flex items-center gap-8 text-sm">
+        <a href="#features" class="text-white/60 hover:text-white transition-colors">Features</a>
+        <a href="#metrics" class="text-white/60 hover:text-white transition-colors">Analytics</a>
+        <a href="#integrations" class="text-white/60 hover:text-white transition-colors">Integrations</a>
+        <a href="#pricing" class="text-white/60 hover:text-white transition-colors">Pricing</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="#" class="text-sm text-white/60 hover:text-white transition-colors font-medium">Log in</a>
+        <a href="#" class="btn-cta text-sm py-2 px-5">Start free →</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="dot-grid relative min-h-screen flex items-center pt-20 overflow-hidden">
+    <!-- Glow orbs -->
+    <div class="orb-purple absolute top-1/4 left-1/4 w-[600px] h-[600px] -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+    <div class="orb-pink absolute bottom-0 right-1/4 w-[400px] h-[400px] pointer-events-none"></div>
+    <div class="orb-blue absolute top-0 right-0 w-[300px] h-[300px] pointer-events-none"></div>
+
+    <div class="relative max-w-7xl mx-auto px-6 py-32 w-full">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="animate-fadeUp shimmer-tag inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium text-violet-300 border border-violet-500/20 mb-8">
+          <span class="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse"></span>
+          Now with AI anomaly detection — <span class="text-white font-semibold">new in v3</span>
+        </div>
+        <h1 class="animate-fadeUp delay-100 font-grotesk text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight mb-8 tracking-tight">
+          Analytics that<br>
+          <span class="text-gradient-multi">see everything</span><br>
+          others miss.
+        </h1>
+        <p class="animate-fadeUp delay-200 text-xl text-white/50 mb-12 max-w-2xl mx-auto leading-relaxed">
+          Prism unifies product, marketing, and revenue data into a single source of truth — with AI-powered insights that surface what matters before you even think to ask.
+        </p>
+        <div class="animate-fadeUp delay-300 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="#" class="btn-cta">Start for free — no card needed</a>
+          <a href="#" class="btn-ghost">See a live demo</a>
+        </div>
+        <p class="animate-fadeUp delay-500 text-xs text-white/30 mt-6">Trusted by 12,000+ product teams · SOC 2 Type II certified</p>
+      </div>
+
+      <!-- Dashboard mock -->
+      <div class="relative mt-20 mx-auto max-w-5xl reveal">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#06060f] z-10 pointer-events-none" style="top: 60%"></div>
+        <div class="glass-card rounded-2xl p-6 shadow-[0_0_80px_rgba(139,92,246,0.15)]">
+          <!-- Dashboard header -->
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-3">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-500/70"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500/70"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500/70"></div>
+              </div>
+              <div class="text-xs font-medium text-white/40 ml-2">prism.io/dashboard/overview</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-xs text-violet-300">Live</div>
+              <div class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></div>
+            </div>
+          </div>
+
+          <!-- Metrics row -->
+          <div class="grid grid-cols-4 gap-4 mb-6">
+            <div class="metric-card">
+              <div class="text-xs text-white/40 mb-2">Monthly Revenue</div>
+              <div class="font-grotesk text-2xl font-bold text-white mb-1">$284,920</div>
+              <div class="flex items-center gap-1 text-xs text-green-400">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+                +18.4%
+              </div>
+            </div>
+            <div class="metric-card">
+              <div class="text-xs text-white/40 mb-2">Active Users</div>
+              <div class="font-grotesk text-2xl font-bold text-white mb-1">42,819</div>
+              <div class="flex items-center gap-1 text-xs text-green-400">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+                +7.2%
+              </div>
+            </div>
+            <div class="metric-card">
+              <div class="text-xs text-white/40 mb-2">Conversion Rate</div>
+              <div class="font-grotesk text-2xl font-bold text-white mb-1">3.84%</div>
+              <div class="flex items-center gap-1 text-xs text-red-400">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                -0.3%
+              </div>
+            </div>
+            <div class="metric-card">
+              <div class="text-xs text-white/40 mb-2">Churn Rate</div>
+              <div class="font-grotesk text-2xl font-bold text-white mb-1">1.2%</div>
+              <div class="flex items-center gap-1 text-xs text-green-400">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+                -0.8%
+              </div>
+            </div>
+          </div>
+
+          <!-- Chart area -->
+          <div class="metric-card">
+            <div class="flex items-center justify-between mb-4">
+              <div class="text-sm font-medium text-white/70">Revenue over time</div>
+              <div class="flex gap-2">
+                <button class="px-3 py-1 rounded-full text-xs bg-violet-500/20 text-violet-300 border border-violet-500/20">90D</button>
+                <button class="px-3 py-1 rounded-full text-xs text-white/30">30D</button>
+                <button class="px-3 py-1 rounded-full text-xs text-white/30">7D</button>
+              </div>
+            </div>
+            <div class="flex items-end gap-2 h-24">
+              <div class="chart-bar flex-1" style="height: 45%"></div>
+              <div class="chart-bar flex-1" style="height: 55%"></div>
+              <div class="chart-bar flex-1" style="height: 40%"></div>
+              <div class="chart-bar flex-1" style="height: 70%"></div>
+              <div class="chart-bar flex-1" style="height: 60%"></div>
+              <div class="chart-bar flex-1" style="height: 80%"></div>
+              <div class="chart-bar flex-1" style="height: 65%"></div>
+              <div class="chart-bar flex-1" style="height: 90%"></div>
+              <div class="chart-bar flex-1" style="height: 75%"></div>
+              <div class="chart-bar flex-1" style="height: 100%" ></div>
+              <div class="chart-bar flex-1" style="height: 85%"></div>
+              <div class="chart-bar flex-1 opacity-40" style="height: 50%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Logos -->
+  <section class="py-16 border-y border-violet-900/15">
+    <p class="text-center text-xs uppercase tracking-widest text-violet-400/40 font-medium mb-8">Powering analytics for</p>
+    <div class="max-w-4xl mx-auto px-6 flex flex-wrap justify-center items-center gap-10">
+      <span class="font-grotesk font-bold text-white/20 text-xl">Acme Corp</span>
+      <span class="font-grotesk font-bold text-white/20 text-xl">Nucleus</span>
+      <span class="font-grotesk font-bold text-white/20 text-xl">Relay</span>
+      <span class="font-grotesk font-bold text-white/20 text-xl">Stackline</span>
+      <span class="font-grotesk font-bold text-white/20 text-xl">Verve</span>
+      <span class="font-grotesk font-bold text-white/20 text-xl">Clio</span>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="py-32 max-w-7xl mx-auto px-6">
+    <div class="text-center mb-20 reveal">
+      <div class="shimmer-tag inline-flex px-4 py-2 rounded-full text-sm text-violet-300 border border-violet-500/20 mb-6 font-medium">Platform features</div>
+      <h2 class="font-grotesk text-4xl sm:text-5xl font-bold mb-6">
+        One platform,<br><span class="text-gradient-purple">infinite insight</span>
+      </h2>
+      <p class="text-white/40 text-lg max-w-2xl mx-auto">Prism connects every data source your team uses and transforms it into decisions that move the needle.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="glass-card rounded-2xl p-8 reveal">
+        <div class="icon-box mb-5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <h3 class="font-grotesk text-lg font-semibold mb-3">AI Insights Engine</h3>
+        <p class="text-white/40 text-sm leading-relaxed">Automatically surfaces anomalies, trends, and opportunities across all your data — no SQL required.</p>
+      </div>
+      <div class="glass-card rounded-2xl p-8 reveal" style="transition-delay:0.05s">
+        <div class="icon-box mb-5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <h3 class="font-grotesk text-lg font-semibold mb-3">Unified Dashboard</h3>
+        <p class="text-white/40 text-sm leading-relaxed">Drag-and-drop dashboard builder. Combine metrics from any source into a single, shareable view.</p>
+      </div>
+      <div class="glass-card rounded-2xl p-8 reveal" style="transition-delay:0.1s">
+        <div class="icon-box mb-5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3 class="font-grotesk text-lg font-semibold mb-3">Team Collaboration</h3>
+        <p class="text-white/40 text-sm leading-relaxed">Shared workspaces with role-based access, comments, and annotations on any chart or metric.</p>
+      </div>
+      <div class="glass-card rounded-2xl p-8 reveal" style="transition-delay:0.15s">
+        <div class="icon-box mb-5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <h3 class="font-grotesk text-lg font-semibold mb-3">Real-time Alerts</h3>
+        <p class="text-white/40 text-sm leading-relaxed">Set custom thresholds and get notified via Slack, email, or webhook the moment something changes.</p>
+      </div>
+      <div class="glass-card rounded-2xl p-8 reveal" style="transition-delay:0.2s">
+        <div class="icon-box mb-5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
+        </div>
+        <h3 class="font-grotesk text-lg font-semibold mb-3">Data Warehouse Sync</h3>
+        <p class="text-white/40 text-sm leading-relaxed">Native connectors to Snowflake, BigQuery, Redshift, and 200+ other sources. Always in sync.</p>
+      </div>
+      <div class="glass-card rounded-2xl p-8 reveal" style="transition-delay:0.25s">
+        <div class="icon-box mb-5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h3 class="font-grotesk text-lg font-semibold mb-3">Enterprise Security</h3>
+        <p class="text-white/40 text-sm leading-relaxed">SOC 2 Type II, SSO, RBAC, and audit logs. Your data never leaves your cloud environment.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Metrics section -->
+  <section id="metrics" class="py-32 bg-violet-950/10 border-y border-violet-900/15">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-20 items-center">
+        <div class="reveal">
+          <h2 class="font-grotesk text-4xl sm:text-5xl font-bold mb-6">Track the metrics<br><span class="text-gradient-purple">that drive growth</span></h2>
+          <p class="text-white/40 text-lg mb-10 leading-relaxed">Prism comes pre-built with 300+ SaaS metrics including MRR, LTV, CAC, churn, activation, and retention cohorts — all calculated automatically from your raw data.</p>
+          <div class="space-y-4">
+            <div class="flex items-center gap-4">
+              <div class="w-1.5 h-1.5 rounded-full bg-violet-400 flex-shrink-0"></div>
+              <span class="text-white/60 text-sm">Funnel analysis with segment breakdowns</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-1.5 h-1.5 rounded-full bg-violet-400 flex-shrink-0"></div>
+              <span class="text-white/60 text-sm">Cohort retention and revenue attribution</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-1.5 h-1.5 rounded-full bg-violet-400 flex-shrink-0"></div>
+              <span class="text-white/60 text-sm">A/B test significance with Bayesian stats</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-1.5 h-1.5 rounded-full bg-violet-400 flex-shrink-0"></div>
+              <span class="text-white/60 text-sm">Custom metric builder with no-code formula editor</span>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 reveal">
+          <div class="metric-card col-span-2">
+            <div class="text-xs text-white/40 mb-3">User Retention Cohort (12 months)</div>
+            <div class="grid grid-cols-6 gap-1">
+              <div class="bg-violet-500/80 rounded text-center text-[9px] text-white py-2">100%</div>
+              <div class="bg-violet-500/60 rounded text-center text-[9px] text-white py-2">72%</div>
+              <div class="bg-violet-500/45 rounded text-center text-[9px] text-white py-2">61%</div>
+              <div class="bg-violet-500/35 rounded text-center text-[9px] text-white py-2">54%</div>
+              <div class="bg-violet-500/28 rounded text-center text-[9px] text-white py-2">49%</div>
+              <div class="bg-violet-500/22 rounded text-center text-[9px] text-white py-2">45%</div>
+              <div class="bg-violet-400/60 rounded text-center text-[9px] text-white py-2">100%</div>
+              <div class="bg-violet-400/45 rounded text-center text-[9px] text-white py-2">78%</div>
+              <div class="bg-violet-400/35 rounded text-center text-[9px] text-white py-2">65%</div>
+              <div class="bg-violet-400/28 rounded text-center text-[9px] text-white py-2">57%</div>
+              <div class="bg-violet-400/22 rounded text-center text-[9px] text-white py-2">52%</div>
+              <div class="bg-violet-400/16 rounded text-center text-[9px] text-white py-2">48%</div>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="text-xs text-white/40 mb-2">MRR Growth</div>
+            <div class="font-grotesk text-2xl font-bold text-white">+$42K</div>
+            <div class="text-xs text-green-400 mt-1">this month</div>
+          </div>
+          <div class="metric-card">
+            <div class="text-xs text-white/40 mb-2">LTV:CAC</div>
+            <div class="font-grotesk text-2xl font-bold text-white">4.8:1</div>
+            <div class="text-xs text-violet-400 mt-1">healthy range</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Integrations -->
+  <section id="integrations" class="py-32 max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16 reveal">
+      <h2 class="font-grotesk text-4xl font-bold mb-4">Connects to <span class="text-gradient-purple">everything</span></h2>
+      <p class="text-white/40">200+ native integrations. If it has data, Prism can read it.</p>
+    </div>
+    <div class="flex flex-wrap justify-center gap-4 reveal">
+      <div class="glass-card rounded-xl px-5 py-3 text-sm font-medium text-white/60">Stripe</div>
+      <div class="glass-card rounded-xl px-5 py-3 text-sm font-medium text-white/60">Salesforce</div>
+      <div class="glass-card rounded-xl px-5 py-3 text-sm font-medium text-white/60">HubSpot</div>
+      <div class="glass-card rounded-xl px-5 py-3 text-sm font-medium text-white/60">Segment</div>
+      <div class="glass-card rounded-xl px-5 py-3 text-sm font-medium text-white/60">Snowflake</div>
+      <div class="glass-card rounded-xl px-5 py-3 text-sm font-medium text-white/60">BigQuery</div>
+      <div class="glass-card rounded-xl px-5 py-3 text-sm font-medium text-white/60">Mixpanel</div>
+      <div class="glass-card rounded-xl px-5 py-3 text-sm font-medium text-white/60">Amplitude</div>
+      <div class="glass-card rounded-xl px-5 py-3 text-sm font-medium text-white/60">Intercom</div>
+      <div class="glass-card rounded-xl px-5 py-3 text-sm font-medium text-white/60">PostgreSQL</div>
+      <div class="glass-card rounded-xl px-5 py-3 text-sm font-medium text-white/60">Slack</div>
+      <div class="glass-card rounded-xl px-5 py-3 text-sm font-medium text-white/60">+189 more</div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="py-32 max-w-7xl mx-auto px-6">
+    <div class="text-center mb-20 reveal">
+      <h2 class="font-grotesk text-4xl sm:text-5xl font-bold mb-6">Pricing that <span class="text-gradient-purple">scales with you</span></h2>
+      <p class="text-white/40 text-lg">Start free, pay as you grow. No lock-in, ever.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="glass-card rounded-2xl p-8 reveal">
+        <div class="text-violet-400/60 text-xs font-semibold uppercase tracking-wider mb-4">Free</div>
+        <div class="font-grotesk text-4xl font-bold mb-1">$0</div>
+        <div class="text-white/30 text-sm mb-8">Up to 3 users · 5 dashboards</div>
+        <ul class="space-y-3 mb-8 text-sm text-white/60">
+          <li class="flex items-center gap-2"><span class="text-violet-400">✓</span> Core analytics</li>
+          <li class="flex items-center gap-2"><span class="text-violet-400">✓</span> 10 data sources</li>
+          <li class="flex items-center gap-2"><span class="text-violet-400">✓</span> 7-day data history</li>
+        </ul>
+        <a href="#" class="btn-ghost block text-center text-sm">Get started free</a>
+      </div>
+      <div class="rounded-2xl p-8 bg-gradient-to-br from-violet-600/15 to-fuchsia-600/5 border border-violet-500/30 relative reveal" style="transition-delay:0.1s">
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-xs font-bold uppercase tracking-wider shadow-[0_0_20px_rgba(139,92,246,0.5)]">Most Popular</div>
+        <div class="text-violet-300 text-xs font-semibold uppercase tracking-wider mb-4">Pro</div>
+        <div class="font-grotesk text-4xl font-bold mb-1">$79<span class="text-lg text-white/30">/mo</span></div>
+        <div class="text-white/30 text-sm mb-8">Up to 20 users · Unlimited dashboards</div>
+        <ul class="space-y-3 mb-8 text-sm text-white/60">
+          <li class="flex items-center gap-2"><span class="text-violet-400">✓</span> AI Insights Engine</li>
+          <li class="flex items-center gap-2"><span class="text-violet-400">✓</span> 200+ integrations</li>
+          <li class="flex items-center gap-2"><span class="text-violet-400">✓</span> 2-year data history</li>
+          <li class="flex items-center gap-2"><span class="text-violet-400">✓</span> Custom alerts</li>
+          <li class="flex items-center gap-2"><span class="text-violet-400">✓</span> Priority support</li>
+        </ul>
+        <a href="#" class="btn-cta block text-center text-sm">Start Pro trial</a>
+      </div>
+      <div class="glass-card rounded-2xl p-8 reveal" style="transition-delay:0.2s">
+        <div class="text-violet-400/60 text-xs font-semibold uppercase tracking-wider mb-4">Enterprise</div>
+        <div class="font-grotesk text-4xl font-bold mb-1">Custom</div>
+        <div class="text-white/30 text-sm mb-8">Unlimited everything</div>
+        <ul class="space-y-3 mb-8 text-sm text-white/60">
+          <li class="flex items-center gap-2"><span class="text-violet-400">✓</span> SSO & SAML</li>
+          <li class="flex items-center gap-2"><span class="text-violet-400">✓</span> Dedicated infrastructure</li>
+          <li class="flex items-center gap-2"><span class="text-violet-400">✓</span> Custom SLA</li>
+          <li class="flex items-center gap-2"><span class="text-violet-400">✓</span> 24/7 support</li>
+        </ul>
+        <a href="#" class="btn-ghost block text-center text-sm">Contact sales</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-32 max-w-4xl mx-auto px-6 text-center">
+    <div class="glass-card rounded-3xl p-16 reveal" style="box-shadow: 0 0 80px rgba(139,92,246,0.12);">
+      <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500 to-fuchsia-500 mx-auto mb-8 flex items-center justify-center shadow-[0_0_32px_rgba(139,92,246,0.5)]">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <h2 class="font-grotesk text-4xl sm:text-5xl font-bold mb-6">
+        Start seeing clearly.<br><span class="text-gradient-purple">Today.</span>
+      </h2>
+      <p class="text-white/40 text-lg mb-10 max-w-lg mx-auto">Join 12,000 product teams who trust Prism to make their most important decisions. Free forever, upgrade when you're ready.</p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#" class="btn-cta">Create your free account</a>
+        <a href="#" class="btn-ghost">Talk to sales</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-violet-900/20 py-16">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <span class="font-grotesk font-bold">Prism</span>
+        </div>
+        <p class="text-white/25 text-sm">© 2025 Prism Analytics, Inc. All rights reserved.</p>
+        <div class="flex gap-6 text-sm text-white/30">
+          <a href="#" class="hover:text-white/60 transition-colors">Privacy</a>
+          <a href="#" class="hover:text-white/60 transition-colors">Terms</a>
+          <a href="#" class="hover:text-white/60 transition-colors">Status</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
